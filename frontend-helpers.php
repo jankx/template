@@ -1,6 +1,13 @@
 <?php
 use \Jankx\Template\Exception;
 
+/**
+ * This function use to load page template via Template Engine
+ *
+ * @param   [type]  $originTemplate  [$originTemplate description]
+ *
+ * @return  [type]                   [return description]
+ */
 function jankx_page($originTemplate)
 {
     $template = apply_filters('jankx_template_engine', '\Jankx\Template\Engine\WordPress');
