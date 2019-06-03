@@ -10,7 +10,9 @@
       "email": "puleeno@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "jankx/ui-framework": "dev-master"
+  },
   "autoload": {
     "psr-4": {
       "Jankx\\Template\\": "src/"
