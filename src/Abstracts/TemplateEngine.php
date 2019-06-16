@@ -2,6 +2,8 @@
 namespace Jankx\Template\Abstracts;
 
 use Jankx\Template\Interfaces\TemplateEngine as IntefaceTemplateEngine;
+use Jankx\Template\Boilerplate\HTML5Boilerplate;
+use Jankx\Template\Exceptions\TemplateException;
 
 abstract class TemplateEngine implements IntefaceTemplateEngine
 {
@@ -10,6 +12,7 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
     public $baseTemplate;
     public $pageTemplate;
     public $pageType;
+    protected $boilerplate;
 
     public function __construct($templateFile)
     {
@@ -21,6 +24,25 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
                 $this->pageType = substr($this->baseTemplate, $pos + 1);
             } else {
                 $this->pageTemplate = $this->baseTemplate;
+            }
+
+            $boilerplate_class = apply_filters('boilerplate_adapter_class', HTML5Boilerplate::class);
+            if (class_exists($boilerplate_class)) {
+                $boilerplate = new $boilerplate_class();
+
+                if ($boilerplate instanceof BoilerPlate) {
+                    $this->boilerplate = $boilerplate;
+                } else {
+                    throw new TemplateException(
+                        sprintf('%s class must is an instance of %s', $boilerplate_class, 'ad'),
+                        TemplateException::TEMPLATE_EXCEPTION_INVALID_BOILERPLATE
+                    );
+                }
+            } else {
+                throw new TemplateException(
+                    sprintf('Jankx template engine must be have define boilerplate'),
+                    TemplateException::TEMPLATE_EXCEPTION_NOT_FOUND_BOILERPLATE
+                );
             }
         }
     }
@@ -49,6 +71,9 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 
     public function render()
     {
+        $this->boilerplate->doctype();
+        $this->boilerplate->head();
+
         $this->getHeader();
         $contentHandler = apply_filters(
             'jankx_page_handler',
@@ -62,5 +87,7 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         } else {
         }
         $this->getFooter();
+
+        $this->boilerplate->footer();
     }
 }
