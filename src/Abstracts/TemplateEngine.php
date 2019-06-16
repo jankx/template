@@ -3,7 +3,7 @@ namespace Jankx\Template\Abstracts;
 
 use Jankx\Template\Interfaces\TemplateEngine as IntefaceTemplateEngine;
 
-abstract class EngineAbstract implements IntefaceTemplateEngine
+abstract class TemplateEngine implements IntefaceTemplateEngine
 {
     public $templateFile;
     public $rootDirectory;

@@ -1,5 +1,9 @@
 <?php
-use \Jankx\Template\Exception;
+
+use Jankx\Template\Exceptions\TemplateException;
+
+use Jankx\Template\Engine\WordPress;
+use Jankx\Template\Abstracts\TemplateEngine;
 
 /**
  * This function use to load page template via Template Engine
@@ -10,18 +14,18 @@ use \Jankx\Template\Exception;
  */
 function jankx_page($originTemplate)
 {
-    $template = apply_filters('jankx_template_engine', '\Jankx\Template\Engine\WordPress');
+    $template = apply_filters('jankx_template_engine', WordPress::class);
     if (!class_exists($template)) {
-        throw new Exception(
+        throw new TemplateException(
             sprintf('The engine with class "%s " is not exists to load', $template),
-            Exception::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
+            TemplateException::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
         );
     }
     $GLOBALS['template_engine'] = new $template($originTemplate);
-    if (!$GLOBALS['template_engine'] instanceof \Jankx\Template\EngineAbstract) {
-        throw new Exception(
-            'The template engine must be an instance of Jankx\Template\EngineAbstract class',
-            Exception::TEMPLATE_EXCEPTION_INVALID_ENGINE
+    if (!$GLOBALS['template_engine'] instanceof TemplateEngine) {
+        throw new TemplateException(
+            sprintf('The template engine must be an instance of %s class', TemplateEngine::class),
+            TemplateException::TEMPLATE_EXCEPTION_INVALID_ENGINE
         );
     }
 

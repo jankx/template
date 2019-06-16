@@ -1,9 +1,7 @@
 <?php
-namespace Jankx\Template;
+namespace Jankx\Template\Exceptions;
 
-use Jankx\Exception as JankxException;
-
-class Exception extends JankxException
+class TemplateException extends \Exception
 {
     const TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND = 7301;
     const TEMPLATE_EXCEPTION_INVALID_ENGINE   = 7302;
