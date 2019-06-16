@@ -1,7 +1,9 @@
 <?php
-namespace Jankx\Template;
+namespace Jankx\Template\Abstracts;
 
-abstract class EngineAbstract implements EngineInterface
+use Jankx\Template\Interfaces\TemplateEngine as IntefaceTemplateEngine;
+
+abstract class EngineAbstract implements IntefaceTemplateEngine
 {
     public $templateFile;
     public $rootDirectory;

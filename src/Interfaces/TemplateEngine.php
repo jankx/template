@@ -1,7 +1,7 @@
 <?php
-namespace Jankx\Template;
+namespace Jankx\Template\Interfaces;
 
-interface EngineInterface
+interface TemplateEngine
 {
     public function templateExtension();
 

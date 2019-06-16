@@ -2,9 +2,9 @@
 
 namespace Jankx\Template\Engine;
 
-use Jankx\Template\EngineAbstract;
+use Jankx\Template\Abstracts\TemplateEngine;
 
-class WordPress extends EngineAbstract
+class WordPress extends TemplateEngine
 {
     protected $defaultDirectory = 'default';
 
