@@ -49,24 +49,41 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 
     public function getHeader($name = null)
     {
+        do_action('jankx_before_header', $name);
+
         /**
          * Call to WordPress native function to get site header
          * Use WordPress native to integrated with other library and plugins.
          */
         get_header($name);
+
+        do_action('jankx_after_header', $name);
     }
 
     public function getSidebar($name = null)
     {
+        do_action('jankx_before_sidebar', $name);
+
+        /**
+         * Call to WordPress native function to get site sidebar
+         * Use WordPress native to integrated with other library and plugins.
+         */
+        get_sidebar($name);
+
+        do_action('jankx_after_sidebar', $name);
     }
 
     public function getFooter($name = null)
     {
+        do_action('jankx_before_footer', $name);
+
         /**
          * Call to WordPress native function to get site footer
          * Use WordPress native to integrated with other library and plugins.
          */
         get_footer($name);
+
+        do_action('jankx_after_footer', $name);
     }
 
     public function defaultHandler()
