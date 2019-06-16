@@ -5,7 +5,7 @@ interface TemplateEngine
 {
     public function templateExtension();
 
-    public function getDefaultTemplateDirectory($fileInRoot);
+    public function getDefaultTemplateDirectory();
 
     public function getHeader($name = null);
 

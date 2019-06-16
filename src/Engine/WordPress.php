@@ -16,9 +16,9 @@ class WordPress extends TemplateEngine
         );
     }
 
-    public function getDefaultTemplateDirectory($fileInRoot)
+    public function getDefaultTemplateDirectory()
     {
-        $rootDir = str_replace(get_template_directory(), '', dirname($fileInRoot));
+        $rootDir = realpath(dirname(__FILE__) . str_repeat('/..', 2));
         return apply_filters(
             'jankx_template_engine_wordpress_default_directory',
             sprintf('%s/default', ltrim($rootDir, '/'))
@@ -30,11 +30,23 @@ class WordPress extends TemplateEngine
         /**
          * Use WordPress native function to search template and include if needed
          */
-        return locate_template($templates, $loadTemplate, $require_once);
-    }
+        $searched_template = locate_template($templates, false);
+        if (empty($searched_template)) {
+            foreach ((array)$templates as $template) {
+                if (file_exists($template)) {
+                    $searched_template = $template;
+                    break;
+                }
+            }
+        }
 
-    public function index()
-    {
-        echo 'index';
+        if (!$searched_template || !$loadTemplate) {
+            return $searched_template;
+        }
+        if ($require_once) {
+            require_once $temsearched_templateplate;
+        } else {
+            require $searched_template;
+        }
     }
 }

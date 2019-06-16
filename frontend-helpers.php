@@ -39,30 +39,30 @@ function jankx_get_template_engine()
     return $GLOBALS['template_engine'];
 }
 
-function jankx_template($templateFile)
+function jankx_template($templateFiles)
 {
     /**
      * Get current template engine is used in Jankx framework
      */
     $engine = jankx_get_template_engine();
+    $templateFiles = (array)$templateFiles;
 
-    $search_template = sprintf(
-        '%s/%s%s',
-        Jankx::templateDirectory(),
-        $templateFile,
-        $engine->templateExtension()
-    );
-    $default_template = sprintf(
-        '%s/%s%s',
-        $engine->getDefaultTemplateDirectory(__FILE__),
-        $templateFile,
-        $engine->templateExtension()
-    );
+    foreach ($templateFiles as $index => $templateFile) {
+        $templateFiles[$index] = sprintf(
+            '%s/%s%s',
+            Jankx::templateDirectory(),
+            $templateFile,
+            $engine->templateExtension()
+        );
+        $templateFiles[] = sprintf(
+            '%s/%s%s',
+            $engine->getDefaultTemplateDirectory(),
+            $templateFile,
+            $engine->templateExtension()
+        );
+    }
 
     return $engine->loadTemplates(
-        apply_filters('jankx_search_templates', array(
-            $search_template,
-            $default_template
-        ))
+        apply_filters('jankx_search_templates', $templateFiles)
     );
 }

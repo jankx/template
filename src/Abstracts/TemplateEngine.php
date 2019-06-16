@@ -4,9 +4,12 @@ namespace Jankx\Template\Abstracts;
 use Jankx\Template\Interfaces\TemplateEngine as IntefaceTemplateEngine;
 use Jankx\Template\Boilerplate\HTML5Boilerplate;
 use Jankx\Template\Exceptions\TemplateException;
+use Jankx\Template\Traits\PageTemplate;
 
 abstract class TemplateEngine implements IntefaceTemplateEngine
 {
+    use PageTemplate;
+
     public $templateFile;
     public $rootDirectory;
     public $baseTemplate;
@@ -58,6 +61,13 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         get_header($name);
 
         do_action('jankx_after_header', $name);
+    }
+
+    public function getContent($name)
+    {
+        do_action('jankx_before_content');
+        jankx_template($name);
+        do_action('jankx_after_content');
     }
 
     public function getSidebar($name = null)
