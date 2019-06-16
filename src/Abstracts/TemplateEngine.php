@@ -69,12 +69,16 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         get_footer($name);
     }
 
+    public function defaultHandler()
+    {
+        echo 'defaultHandler';
+    }
+
     public function render()
     {
         $this->boilerplate->doctype();
         $this->boilerplate->head();
 
-        $this->getHeader();
         $contentHandler = apply_filters(
             'jankx_page_handler',
             array($this, $this->pageTemplate),
@@ -82,11 +86,12 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
             $this->pageType,
             $this->templateFile
         );
+
         if (is_callable($contentHandler)) {
             call_user_func($contentHandler);
         } else {
+            $this->defaultHandler();
         }
-        $this->getFooter();
 
         $this->boilerplate->footer();
     }

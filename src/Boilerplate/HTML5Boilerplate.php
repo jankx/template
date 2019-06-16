@@ -15,10 +15,12 @@ class HTML5Boilerplate extends Boilerplate
         ?>
         <html class="no-js" <?php language_attributes(); ?>>
             <head>
-                <title><?php wp_title(); ?></title>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <?php wp_head(); ?>
+                <title><?php wp_title(); ?></title>
+                <?php
+                    wp_head();
+                ?>
             </head>
             <body <?php body_class(); ?>>
             <!--[if IE]>
@@ -35,7 +37,7 @@ class HTML5Boilerplate extends Boilerplate
     {
         wp_footer();
         ?>
-        </body>
+            </body>
         </html>
         <?php
     }

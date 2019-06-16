@@ -29,6 +29,8 @@ function jankx_page($originTemplate)
         );
     }
 
+    do_action('jankx_page_setup', $GLOBALS['template_engine']);
+
     $GLOBALS['template_engine']->render();
 }
 

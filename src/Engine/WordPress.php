@@ -35,5 +35,6 @@ class WordPress extends TemplateEngine
 
     public function index()
     {
+        echo 'index';
     }
 }
