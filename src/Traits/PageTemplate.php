@@ -38,4 +38,13 @@ trait PageTemplate
         ));
         $this->getFooter();
     }
+
+    public function search()
+    {
+        $this->getHeader();
+        $this->getContent(array(
+            'search'
+        ));
+        $this->getFooter();
+    }
 }

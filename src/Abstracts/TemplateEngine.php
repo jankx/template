@@ -98,7 +98,11 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 
     public function defaultHandler()
     {
-        echo 'defaultHandler';
+        $this->getHeader();
+            $this->getContent(array(
+                '404'
+            ));
+            $this->getFooter();
     }
 
     public function render()
