@@ -19,6 +19,9 @@ class HTML5Boilerplate extends Boilerplate
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <title><?php wp_title(); ?></title>
                 <?php
+                    /**
+                     * Call WordPress header native function to integrate with other plugins
+                     */
                     wp_head();
                 ?>
             </head>
@@ -35,6 +38,9 @@ class HTML5Boilerplate extends Boilerplate
 
     public function footer()
     {
+        /**
+         * Call WordPress footer native function to integrate with other plugins
+         */
         wp_footer();
         ?>
             </body>
