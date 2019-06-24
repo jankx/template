@@ -52,6 +52,9 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 
     public function getHeader($name = null)
     {
+        /**
+         * Do all actions before get site header
+         */
         do_action('jankx_before_header', $name);
 
         /**
@@ -60,18 +63,24 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
          */
         get_header($name);
 
+        /**
+         * Do all actions after get site header
+         */
         do_action('jankx_after_header', $name);
     }
 
     public function getContent($name)
     {
-        do_action('jankx_before_content');
+        do_action('jankx_before_main_content', $name);
         jankx_template($name);
-        do_action('jankx_after_content');
+        do_action('jankx_after_main_content', $name);
     }
 
     public function getSidebar($name = null)
     {
+        /**
+         * Do all actions before get sidebar
+         */
         do_action('jankx_before_sidebar', $name);
 
         /**
@@ -80,11 +89,17 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
          */
         get_sidebar($name);
 
+        /**
+         * Do all actions after get sidebar
+         */
         do_action('jankx_after_sidebar', $name);
     }
 
     public function getFooter($name = null)
     {
+        /**
+         * Do all actions before get site footer
+         */
         do_action('jankx_before_footer', $name);
 
         /**
@@ -93,6 +108,9 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
          */
         get_footer($name);
 
+        /**
+         * Do all actions after get site footer
+         */
         do_action('jankx_after_footer', $name);
     }
 
