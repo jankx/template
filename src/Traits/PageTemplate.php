@@ -41,6 +41,10 @@ trait PageTemplate
         $this->getHeader();
         do_action('after_archive_content');
         $this->getContent(array(
+            sprintf(
+                'archive/%s',
+                empty($this->pageType) ? get_post_type() : $this->pageType
+            ),
             'archive'
         ));
         do_action('after_archive_content');
@@ -52,6 +56,10 @@ trait PageTemplate
         $this->getHeader();
         do_action('after_search_content');
         $this->getContent(array(
+            sprintf(
+                'search/%s',
+                get_post_type()
+            ),
             'search'
         ));
         do_action('after_search_content');
