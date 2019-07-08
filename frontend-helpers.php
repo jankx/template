@@ -39,8 +39,10 @@ function jankx_get_template_engine()
     return $GLOBALS['template_engine'];
 }
 
-function jankx_template($templateFiles)
+function jankx_template($templateFiles, $context = null)
 {
+    do_action("jankx_template_before_{$context}");
+
     /**
      * Get current template engine is used in Jankx framework
      */
@@ -62,7 +64,10 @@ function jankx_template($templateFiles)
         );
     }
 
-    return $engine->loadTemplates(
+    $ret = $engine->loadTemplates(
         apply_filters('jankx_search_templates', $templateFiles)
     );
+
+    do_action("jankx_template_{$context}", $ret);
+    return $ret;
 }
