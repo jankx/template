@@ -1,8 +1,17 @@
 <?php
+/**
+ * Jankx template engine methods
+ *
+ * @package UI
+ */
+
 namespace Jankx\Template\Traits;
 
 trait PageTemplate
 {
+    /**
+     * Load the home or index template
+     */
     public function index()
     {
         $this->getHeader();
@@ -12,6 +21,9 @@ trait PageTemplate
         $this->getFooter();
     }
 
+    /**
+     * Load the page template
+     */
     public function page()
     {
         $this->getHeader();
@@ -21,6 +33,9 @@ trait PageTemplate
         $this->getFooter();
     }
 
+    /**
+     * Load the single post template
+     */
     public function single()
     {
         $this->getHeader();
@@ -36,6 +51,9 @@ trait PageTemplate
         $this->getFooter();
     }
 
+    /**
+     * Load the archive template
+     */
     public function archive()
     {
         $this->getHeader();
@@ -51,6 +69,9 @@ trait PageTemplate
         $this->getFooter();
     }
 
+    /**
+     * Load the search result template
+     */
     public function search()
     {
         $this->getHeader();
@@ -64,5 +85,14 @@ trait PageTemplate
         ));
         do_action('after_search_content');
         $this->getFooter();
+    }
+
+    /**
+     * This method to load the template in contain in theme directory
+     * Them like Woocommerce template or similar template
+     */
+    public function autoload()
+    {
+        require_once $this->templateFile;
     }
 }

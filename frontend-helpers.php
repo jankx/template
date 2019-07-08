@@ -12,16 +12,16 @@ use Jankx\Template\Abstracts\TemplateEngine;
  *
  * @return  [type]                   [return description]
  */
-function jankx_page($originTemplate)
+function jankx_page($originTemplate, $auto = false)
 {
-    $template = apply_filters('jankx_template_engine', WordPress::class);
+    $template = apply_filters('jankx_template_engine', WordPress::class, $auto);
     if (!class_exists($template)) {
         throw new TemplateException(
             sprintf('The engine with class "%s " is not exists to load', $template),
             TemplateException::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
         );
     }
-    $GLOBALS['template_engine'] = new $template($originTemplate);
+    $GLOBALS['template_engine'] = new $template($originTemplate, $auto);
     if (!$GLOBALS['template_engine'] instanceof TemplateEngine) {
         throw new TemplateException(
             sprintf('The template engine must be an instance of %s class', TemplateEngine::class),

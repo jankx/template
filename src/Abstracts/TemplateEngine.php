@@ -16,8 +16,9 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
     public $pageTemplate;
     public $pageType;
     protected $boilerplate;
+    protected $autoloaded;
 
-    public function __construct($templateFile)
+    public function __construct($templateFile, $autoloaded = false)
     {
         if (preg_match('/(.+)\/([^\/]*)\.php$/', trim($templateFile), $matches)) {
             list($this->templateFile, $this->rootDirectory, $this->baseTemplate) = $matches;
@@ -48,6 +49,16 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
                 );
             }
         }
+
+        /**
+         * This variable use as flag to specify the template render via Jankx or not
+         */
+        $this->autoloaded = $autoloaded;
+    }
+
+    public function getBoilerplate()
+    {
+        return $this->boilerplate;
     }
 
     public function getHeader($name = null)
@@ -128,9 +139,15 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         $this->boilerplate->doctype();
         $this->boilerplate->head();
 
+
+        $handler = array($this, $this->pageTemplate);
+        if ($this->autoloaded) {
+            $handler = array($this, 'autoload');
+        }
+
         $contentHandler = apply_filters(
             'jankx_page_handler',
-            array($this, $this->pageTemplate),
+            $handler,
             $this->pageTemplate,
             $this->pageType,
             $this->templateFile
