@@ -1,9 +1,12 @@
 <?php
 namespace Jankx\Template;
 
+use Jankx;
+use Jankx\Template\UI\FooterWidget;
+
 class Initialize
 {
-    public static function loadTemplateFunctions()
+    public static function loadTemplateFunctions($jankx)
     {
         self::loadHelpers();
 
@@ -11,6 +14,10 @@ class Initialize
          * Detect template include to ensure Jankx framework is loaded
          */
         add_filter('template_include', array(__CLASS__, 'supportNotJankxTemplate'), 35);
+
+        $jankx->footerWidgets = function () {
+            FooterWidget::render();
+        };
     }
 
     public static function loadHelpers()
@@ -31,8 +38,7 @@ class Initialize
         }
     }
 
-
-    public function addJankxHookViaWordPressNative()
+    public static function addJankxHookViaWordPressNative()
     {
         add_action('get_header', function () {
             do_action('jankx_before_get_header');
