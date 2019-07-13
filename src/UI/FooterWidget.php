@@ -24,14 +24,14 @@ class FooterWidget
         for ($i = 1; $i <= $numOfFooterWidgets; $i++) {
             $sidebarId = sprintf('%s-%s', $footerWidgetPrefix, $i);
 
-            do_action("jankx_before_sidebar_footer", $sidebarId, $footerWidgetPrefix, $i);
+            do_action("jankx_before_sidebar_footer_widget", $sidebarId, $footerWidgetPrefix, $i);
 
             /**
              * Call footer sidebar
              */
             Jankx::sidebar($sidebarId);
 
-            do_action("jankx_after_sidebar_footer", $sidebarId, $footerWidgetPrefix, $i);
+            do_action("jankx_after_sidebar_footer_widget", $sidebarId, $footerWidgetPrefix, $i);
         }
 
         do_action("jankx_after_footer_widget_area");
