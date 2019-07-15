@@ -15,6 +15,8 @@ use Jankx\Template\Abstracts\TemplateEngine;
 function jankx_page($originTemplate, $auto = false)
 {
     $templateEngine = jankx_get_template_engine();
+    $templateEngine->setOriginTemplate($originTemplate);
+    $templateEngine->setAutoloaded($auto);
 
     if (!$templateEngine instanceof TemplateEngine) {
         throw new TemplateException(
@@ -31,14 +33,14 @@ function jankx_page($originTemplate, $auto = false)
 function jankx_get_template_engine()
 {
     if (empty($GLOBALS['template_engine'])) {
-        $template = apply_filters('jankx_template_engine', WordPress::class, $auto);
+        $template = apply_filters('jankx_template_engine', WordPress::class);
         if (!class_exists($template)) {
             throw new TemplateException(
                 sprintf('The engine with class "%s " is not exists to load', $template),
                 TemplateException::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
             );
         }
-        $GLOBALS['template_engine'] = new $template($originTemplate, $auto);
+        $GLOBALS['template_engine'] = new $template();
     }
 
     return $GLOBALS['template_engine'];

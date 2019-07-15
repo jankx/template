@@ -18,7 +18,7 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
     protected $boilerplate;
     protected $autoloaded;
 
-    public function __construct($templateFile, $autoloaded = false)
+    public function setOriginTemplate($templateFile)
     {
         if (preg_match('/(.+)\/([^\/]*)\.php$/', trim($templateFile), $matches)) {
             list($this->templateFile, $this->rootDirectory, $this->baseTemplate) = $matches;
@@ -49,7 +49,10 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
                 );
             }
         }
+    }
 
+    public function setAutoloaded($autoloaded = false)
+    {
         /**
          * This variable use as flag to specify the template render via Jankx or not
          */
