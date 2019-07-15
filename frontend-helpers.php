@@ -14,28 +14,33 @@ use Jankx\Template\Abstracts\TemplateEngine;
  */
 function jankx_page($originTemplate, $auto = false)
 {
-    $template = apply_filters('jankx_template_engine', WordPress::class, $auto);
-    if (!class_exists($template)) {
-        throw new TemplateException(
-            sprintf('The engine with class "%s " is not exists to load', $template),
-            TemplateException::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
-        );
-    }
-    $GLOBALS['template_engine'] = new $template($originTemplate, $auto);
-    if (!$GLOBALS['template_engine'] instanceof TemplateEngine) {
+    $templateEngine = jankx_get_template_engine();
+
+    if (!$templateEngine instanceof TemplateEngine) {
         throw new TemplateException(
             sprintf('The template engine must be an instance of %s class', TemplateEngine::class),
             TemplateException::TEMPLATE_EXCEPTION_INVALID_ENGINE
         );
     }
 
-    do_action('jankx_page_setup', $GLOBALS['template_engine']);
+    do_action('jankx_page_setup', $templateEngine);
 
-    $GLOBALS['template_engine']->render();
+    $templateEngine->render();
 }
 
 function jankx_get_template_engine()
 {
+    if (empty($GLOBALS['template_engine'])) {
+        $template = apply_filters('jankx_template_engine', WordPress::class, $auto);
+        if (!class_exists($template)) {
+            throw new TemplateException(
+                sprintf('The engine with class "%s " is not exists to load', $template),
+                TemplateException::TEMPLATE_EXCEPTION_ENGINE_NOT_FOUND
+            );
+        }
+        $GLOBALS['template_engine'] = new $template($originTemplate, $auto);
+    }
+
     return $GLOBALS['template_engine'];
 }
 
