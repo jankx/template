@@ -54,27 +54,10 @@ function jankx_template($templateFiles, $context = null)
      * Get current template engine is used in Jankx framework
      */
     $engine = jankx_get_template_engine();
-    $templateFiles = (array)$templateFiles;
-
-    foreach ($templateFiles as $index => $templateFile) {
-        $templateFiles[$index] = sprintf(
-            '%s/%s%s',
-            Jankx::templateDirectory(),
-            $templateFile,
-            $engine->templateExtension()
-        );
-        $templateFiles[] = sprintf(
-            '%s/%s%s',
-            $engine->getDefaultTemplateDirectory(),
-            $templateFile,
-            $engine->templateExtension()
-        );
-    }
-
     $ret = $engine->loadTemplates(
         apply_filters('jankx_search_templates', $templateFiles)
     );
 
-    do_action("jankx_template_{$context}", $ret);
+    do_action("jankx_template_{$context}", $ret, $templateFiles);
     return $ret;
 }

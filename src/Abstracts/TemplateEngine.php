@@ -1,6 +1,7 @@
 <?php
 namespace Jankx\Template\Abstracts;
 
+use Jankx;
 use Jankx\Template\Interfaces\TemplateEngine as IntefaceTemplateEngine;
 use Jankx\Template\Boilerplate\HTML5Boilerplate;
 use Jankx\Template\Exceptions\TemplateException;
@@ -10,13 +11,33 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 {
     use PageTemplate;
 
-    public $templateFile;
-    public $rootDirectory;
+    protected $boilerplate;
+    protected $autoloaded;
+    protected $wpThemeRootDir;
+    protected $templateDirInTheme;
+    protected $defaultTemplateDirName;
+
     public $baseTemplate;
     public $pageTemplate;
     public $pageType;
-    protected $boilerplate;
-    protected $autoloaded;
+    public $rootDirectory;
+    public $templateFile;
+
+
+
+    public function __construct()
+    {
+        if (is_string($roots = get_theme_roots())) {
+            $this->wpThemeRootDir = sprintf('%s%s/', WP_CONTENT_DIR, $roots);
+        }
+
+        $defaultTemplateDirName = $this->getDefaultTemplateDirectory();
+        if (($pos= strpos($defaultTemplateDirName, $this->wpThemeRootDir)) !== false) {
+            $this->templateDirInTheme = true;
+            $this->defaultTemplateDirName = substr($defaultTemplateDirName, $pos + strlen(get_template_directory()) + 1);
+        }
+    }
+
 
     public function setOriginTemplate($templateFile)
     {
@@ -163,5 +184,29 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         }
 
         $this->boilerplate->footer();
+    }
+
+    protected function searchTemplates($templateFiles)
+    {
+        $templateFiles = (array)$templateFiles;
+        foreach ($templateFiles as $index => $templateFile) {
+            $templateFiles[$index] = sprintf(
+                '%s/%s%s',
+                Jankx::templateDirectory(),
+                $templateFile,
+                $this->templateExtension()
+            );
+
+            if ($this->templateDirInTheme) {
+                $templateFiles[] = sprintf(
+                    '%s/%s%s',
+                    $this->defaultTemplateDirName,
+                    $templateFile,
+                    $this->templateExtension()
+                );
+            }
+        }
+
+        return $templateFiles;
     }
 }

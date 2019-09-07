@@ -21,7 +21,7 @@ class WordPress extends TemplateEngine
         $rootDir = realpath(dirname(__FILE__) . str_repeat('/..', 2));
         return apply_filters(
             'jankx_template_engine_wordpress_default_directory',
-            sprintf('%s/default', ltrim($rootDir, '/'))
+            sprintf('%s/default', $rootDir)
         );
     }
 
@@ -30,9 +30,15 @@ class WordPress extends TemplateEngine
         /**
          * Use WordPress native function to search template and include if needed
          */
-        $searched_template = locate_template($templates, false);
+        $searched_template = locate_template(
+            $this->searchTemplates($templates),
+            false
+        );
+
         if (empty($searched_template)) {
+            $defaultDirectory = $this->getDefaultTemplateDirectory();
             foreach ((array)$templates as $template) {
+                $template = sprintf('%s/%s', $defaultDirectory, $template);
                 if (file_exists($template)) {
                     $searched_template = $template;
                     break;

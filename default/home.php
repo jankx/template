@@ -13,5 +13,4 @@ if ( have_posts() ) {
 		jankx_template( 'loop/post' );
 	}
 	echo '</div>';
-	bootstrap_pagination();
 }
