@@ -38,7 +38,7 @@ class WordPress extends TemplateEngine
         if (empty($searched_template)) {
             $defaultDirectory = $this->getDefaultTemplateDirectory();
             foreach ((array)$templates as $template) {
-                $template = sprintf('%s/%s', $defaultDirectory, $template);
+                $template = sprintf('%s/%s.php', $defaultDirectory, $template);
                 if (file_exists($template)) {
                     $searched_template = $template;
                     break;
