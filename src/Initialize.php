@@ -13,7 +13,7 @@ class Initialize
         /**
          * Detect template include to ensure Jankx framework is loaded
          */
-        add_filter('template_include', array(__CLASS__, 'supportNotJankxTemplate'), 35);
+        add_filter('template_include', array(__CLASS__, 'supportNotJankxTemplate'), 88);
 
         $jankx->footerWidgets = function () {
             FooterWidget::render();
