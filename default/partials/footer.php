@@ -1,20 +1,13 @@
-<div class="before-footer-widget">
-<?php
-	global $post;
-	$post = get_post( 1960 );
-	setup_postdata( $post );
-	the_content();
-	wp_reset_postdata();
-?>
-</div>
-<div class="footer-widget-area">
-	<div class="container">
-		<?php Jankx::footerWidgets(); ?>
+<?php if ( Jankx::hasActiveFooterWidgets() ) : ?>
+	<div class="footer-widget-area">
+		<?php Jankx::container(); ?>
+			<?php Jankx::footerWidgets(); ?>
+		</div>
 	</div>
-</div>
+<?php endif; ?>
 
 <div class="site-footer">
-	<div class="container">
-		<div class="footer-copyright">Copyright &copy; 2019 POLIDO VIỆT NAM. All rights resersed.</div>
+	<?php Jankx::container(); ?>
+		<div class="footer-copyright"><?php Jankx::copyright(); ?></div>
 	</div>
 </div>
