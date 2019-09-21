@@ -15,14 +15,18 @@ class Initialize
          */
         add_filter('template_include', array(__CLASS__, 'supportNotJankxTemplate'), 88);
 
+        $jankx->hasActiveFooterWidgets = function () {
+            return FooterWidget::isActive();
+        };
+
         $jankx->footerWidgets = function () {
-            FooterWidget::render();
+            return FooterWidget::render();
         };
     }
 
     public static function loadHelpers()
     {
-        if (\Jankx::isRequest('frontend')) {
+        if (Jankx::isRequest('frontend')) {
             require_once realpath(dirname(__FILE__) . '/../frontend-helpers.php');
         }
     }
