@@ -31,14 +31,14 @@ class Initialize
     {
         $relativePath = str_replace(WP_CONTENT_DIR, '', $templateFile);
         if (!preg_match('/^\/themes/', $relativePath)) {
-            self::addJankxHookViaWordPressNative();
+            self::addJankxHookViaWordPressNativeFunctions();
             jankx_page($templateFile, true);
         } else {
             return $templateFile;
         }
     }
 
-    public static function addJankxHookViaWordPressNative()
+    public static function addJankxHookViaWordPressNativeFunctions()
     {
         add_action('get_header', function () {
             do_action('jankx_before_get_header');
