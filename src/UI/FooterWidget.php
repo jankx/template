@@ -36,4 +36,10 @@ class FooterWidget
 
         do_action("jankx_after_footer_widget_area");
     }
+
+    public static function isActive()
+    {
+        $first_sidebar = sprintf('%s1', self::getFooterWidgetPrefix());
+        return self::getFooterWigetColumns() > 0 && is_dynamic_sidebar($first_sidebar);
+    }
 }
