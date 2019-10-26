@@ -9,7 +9,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container">
 	<?php
-		$args = array();
+		$args = array(
+			'show_logo' => true,
+		);
 		Jankx::menu(
 			'primary',
 			$args
