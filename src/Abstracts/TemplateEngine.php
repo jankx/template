@@ -104,10 +104,16 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
         do_action('jankx_after_header', $name);
     }
 
-    public function getContent($name)
+    public function getContent($name, $context = '')
     {
         do_action('jankx_before_main_content', $name);
-        jankx_template($name);
+        $pre = apply_filters("jankx_content_{$context}", null, $name);
+        if (empty($pre)) {
+            jankx_template($name);
+        } else {
+            echo wp_kses_post($pre);
+        }
+
         do_action('jankx_after_main_content', $name);
     }
 

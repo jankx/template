@@ -16,7 +16,7 @@ trait PageTemplate
     {
         $this->getHeader();
         do_action('before_home_content');
-        $this->getContent(array('home', 'index'));
+        $this->getContent(array('home', 'index'), 'home');
         do_action('after_home_content');
         $this->getFooter();
     }
@@ -28,7 +28,7 @@ trait PageTemplate
     {
         $this->getHeader();
         do_action('before_page_content');
-        $this->getContent('page');
+        $this->getContent('page', 'page');
         do_action('after_page_content');
         $this->getFooter();
     }
@@ -46,7 +46,7 @@ trait PageTemplate
                 empty($this->pageType) ? get_post_type() : $this->pageType
             ),
             'single'
-        ));
+        ), 'single');
         do_action('after_single_content');
         $this->getFooter();
     }
@@ -64,7 +64,7 @@ trait PageTemplate
                 empty($this->pageType) ? get_post_type() : $this->pageType
             ),
             'archive'
-        ));
+        ), 'archive');
         do_action('after_archive_content');
         $this->getFooter();
     }
@@ -82,7 +82,7 @@ trait PageTemplate
                 get_post_type()
             ),
             'search'
-        ));
+        ), 'search');
         do_action('after_search_content');
         $this->getFooter();
     }
