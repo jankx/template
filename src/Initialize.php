@@ -33,6 +33,10 @@ class Initialize
 
     public static function supportNotJankxTemplate($templateFile)
     {
+        if (empty($templateFile)) {
+            return $templateFile;
+        }
+
         $relativePath = str_replace(WP_CONTENT_DIR, '', $templateFile);
         if (!preg_match('/^\/themes/', $relativePath)) {
             self::addJankxHookViaWordPressNativeFunctions();
