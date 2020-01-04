@@ -202,8 +202,13 @@
 	</g>
 </svg>
 <div class="content">
-	<h3>Hello?? Is somebody there?!?</h3>
-	<p>We know it’s scary, but the page you’re trying to reach can’t be found. Perhaps it was just a bad <span>link</span> dream?</p>
+	<h3>Xin chào?? Có ai ở đó không?!?</h3>
+	Chúng tôi biết nó rất đáng sợ, nhưng trang mà bạn đang cố gắng tiếp cận có thể được tìm thấy. Có lẽ đó chỉ là một giấc mơ?
+	<!-- <h3>Hello?? Is somebody there?!?</h3>
+	<p>We know it’s scary, but the page you’re trying to reach can’t be found. Perhaps it was just a bad <span>link</span> dream?</p> -->
+	<p>
+		<a href="<?php echo home_url(); ?>">Về trang chủ</a>
+	</p>
 </div>
 
 <style>
@@ -229,14 +234,22 @@ body, html {
 	padding: 5rem 3rem 0 25rem;
 	position: relative; z-index: 10;
 	font-family: 'Source Sans Pro', sans-serif; color: #FFF;
-	h3 {
-		margin: 0 0 .8rem;
-		font-size: 2.625rem; font-weight: 900; line-height: 120%;
-	}
-	p {
-		font-size: 1.25rem; font-weight: normal; line-height: 150%; color: #d1e2ed;
-		span {text-decoration: line-through;}
-	}
+}
+.content h3 {
+	margin: 0 0 .8rem;
+	font-size: 2.625rem; font-weight: 900; line-height: 120%;
+}
+.content p {
+	font-size: 1.25rem; font-weight: normal; line-height: 150%; color: #d1e2ed;
+	span {text-decoration: line-through;}
+}
+
+.content a {
+	background-color: #fff;
+	display: inline-block;
+	padding: 5px 10px;
+	color: #0b334f;
+	margin-top: 20px;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
