@@ -203,7 +203,9 @@
 </svg>
 <div class="content">
 	<h3>Xin chào?? Có ai ở đó không?!?</h3>
-	Chúng tôi biết nó rất đáng sợ, nhưng trang mà bạn đang cố gắng tiếp cận có thể được tìm thấy. Có lẽ đó chỉ là một giấc mơ?
+	<p>
+		<?php echo apply_filters( 'jankx_the_custom_404_message', 'Chúng tôi biết nó rất đáng sợ, nhưng trang mà bạn đang cố gắng tiếp cận có thể được tìm thấy. Có lẽ đó chỉ là một giấc mơ?' ); ?>
+	</p>
 	<!-- <h3>Hello?? Is somebody there?!?</h3>
 	<p>We know it’s scary, but the page you’re trying to reach can’t be found. Perhaps it was just a bad <span>link</span> dream?</p> -->
 	<p>
