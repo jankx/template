@@ -11,6 +11,11 @@ class Initialize
         self::loadHelpers();
 
         /**
+         * Customize the 404 template
+         */
+        add_filter('jankx_404_custom_content', array(__CLASS__, 'custom_404_page'));
+
+        /**
          * Detect template include to ensure Jankx framework is loaded
          */
         add_filter('template_include', array(__CLASS__, 'supportNotJankxTemplate'), 88);
@@ -68,5 +73,12 @@ class Initialize
         add_action('jankx_template_footer', function () {
             do_action('jankx_after_get_footer');
         });
+    }
+
+    public static function custom_404_page()
+    {
+        ob_start();
+        jankx_template(array('error/404', '404'));
+        return ob_get_clean();
     }
 }

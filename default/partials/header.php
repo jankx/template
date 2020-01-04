@@ -16,6 +16,6 @@
 			'primary',
 			$args
 		);
-	?>
+		?>
 	</div>
 </nav>

@@ -157,11 +157,17 @@ abstract class TemplateEngine implements IntefaceTemplateEngine
 
     public function defaultHandler()
     {
+        $pre_404 = apply_filters('jankx_404_custom_content', null);
+        if ($pre_404) {
+            echo $pre_404;
+            return;
+        }
+
         $this->getHeader();
-            $this->getContent(array(
-                '404'
-            ));
-            $this->getFooter();
+        $this->getContent(array(
+            '404'
+        ));
+        $this->getFooter();
     }
 
     public function render()
