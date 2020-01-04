@@ -202,7 +202,7 @@
 	</g>
 </svg>
 <div class="content">
-	<h3>Xin chào?? Có ai ở đó không?!?</h3>
+	<h3><?php echo apply_filters( 'jankx_the_custom_404_heading', 'Xin chào?? Có ai ở đó không?!?' ); ?></h3>
 	<p>
 		<?php echo apply_filters( 'jankx_the_custom_404_message', 'Chúng tôi biết nó rất đáng sợ, nhưng trang mà bạn đang cố gắng tiếp cận có thể được tìm thấy. Có lẽ đó chỉ là một giấc mơ?' ); ?>
 	</p>
