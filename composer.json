@@ -11,7 +11,8 @@
     }
   ],
   "require": {
-    "jankx/ui-framework": "dev-master"
+    "jankx/ui-framework": "dev-master",
+    "jankx/asset": "dev-master"
   },
   "autoload": {
     "psr-4": {
