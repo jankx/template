@@ -1,5 +1,6 @@
 <?php
 namespace Jankx\Template\Abstracts;
 
-abstract class Component {
+abstract class ComponentAbstract
+{
 }
