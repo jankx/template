@@ -16,4 +16,8 @@ class Template
     public static function getTemplateEngine()
     {
     }
+
+    public function load()
+    {
+    }
 }

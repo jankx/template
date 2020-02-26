@@ -15,7 +15,7 @@ class Loader
     {
     }
 
-    public function load($data = [], $echo = true)
+    public function render($data = [], $echo = true)
     {
     }
 
