@@ -9,7 +9,7 @@ class Template
     protected static $templateLoaded;
     protected static $defautLoader;
 
-    public static function getInstance($templateFileLoader = null, $themePrefix = '', $engineName = 'wordpress')
+    public static function getInstance($templateFileLoader = null, $directoryInTheme = '', $engineName = 'wordpress')
     {
         if (is_null($templateFileLoader) && self::$defautLoader) {
             $templateFileLoader = self::$defautLoader;
@@ -17,19 +17,20 @@ class Template
         if (empty(self::$instances[$templateFileLoader])) {
             $loader = new Loader(
                 $templateFileLoader,
-                $themePrefix
+                $directoryInTheme
             );
             $applyTemplateEngine = apply_filters(
                 'jankx_template_engine',
                 $engineName,
                 $templateFileLoader,
-                $themePrefix,
+                $directoryInTheme,
                 $loader
             );
             $engine = EngineManager::createEngine(
                 $templateFileLoader,
                 $applyTemplateEngine,
                 array(
+                    'template_directory' => $directoryInTheme,
                     'template_location' => $templateFileLoader,
                 )
             );
