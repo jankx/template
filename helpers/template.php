@@ -1,5 +1,6 @@
 <?php
 use Jankx\Template\Template;
+use Jankx\Template\Loader;
 
 function jankx_template($templates, $data = [], $templateLoader = null, $context = '', $echo = true) {
     if(is_null($templateLoader)) {
