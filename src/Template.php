@@ -7,9 +7,13 @@ class Template
 {
     protected static $instances = [];
     protected static $templateLoaded;
+    protected static $defautLoader;
 
     public static function getInstance($templateFileLoader = null, $themePrefix = '', $engineName = 'wordpress')
     {
+        if (is_null($templateFileLoader) && self::$defautLoader) {
+            $templateFileLoader = self::$defautLoader;
+        }
         if (empty(self::$instances[$templateFileLoader])) {
             $loader = new Loader(
                 $templateFileLoader,
@@ -38,15 +42,20 @@ class Template
 
     public function load()
     {
-        if (self::$templateLoaded) {
-            return;
+        if (!self::$templateLoaded) {
+            $this->loadTemplateHelpers();
+            /**
+             * Create a flag to check Jankx template library is loaded
+             */
+            self::$templateLoaded = true;
         }
-        $this->loadTemplateHelpers();
 
-        /**
-         * Create a flag to check Jankx template library is loaded
-         */
-        self::$templateLoaded = true;
+        if (defined('JANKX_THEME_DEFAULT_ENGINE')) {
+            self::$defautLoader = apply_filters(
+                'jankx_default_template_loader',
+                JANKX_THEME_DEFAULT_ENGINE
+            );
+        }
     }
 
     public function loadTemplateHelpers()
