@@ -30,11 +30,7 @@ class Loader
         $this->templateEngine = $engine;
     }
 
-    public function search($templates, $context = null)
-    {
-    }
-
-    public function render($data = [], $echo = true)
+    public function render($templates, $data = [], $echo = true)
     {
     }
 

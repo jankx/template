@@ -5,6 +5,15 @@ function jankx_template($templates, $data = [], $templateLoader = null, $context
     if(is_null($templateLoader)) {
         $templateLoader = Template::getInstance();
     }
-    $templateLoader->search($templates, $context);
-    return $templateLoader->render($data, $echo);
+    if (!($templateLoader instanceof Loader)) {
+        throw new \Error(
+            sprintf('The template loader must be is instance of %s', Loader::class)
+        );
+    }
+    
+    return $templateLoader->render(
+        $templates,
+        $data,
+        $echo
+    );
 }
