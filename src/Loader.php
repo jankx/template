@@ -8,7 +8,6 @@ class Loader
     protected $templateEngine;
     protected $defaultTemplateDirectory;
     protected $directoryInTheme;
-    protected $searchedTemplate;
 
     public function __construct($defaultTemplateDirectory, $directoryInTheme = '', $engine = null)
     {
@@ -30,11 +29,16 @@ class Loader
         $this->templateEngine = $engine;
     }
 
-    public function render($templates, $data = [], $echo = true)
+    public function render($templates, $data = [], $context = null, $echo = true)
     {
-    }
-
-    public function searchInDefautDirectory($templates, $context = null)
-    {
+        if ($context) {
+            $templates = apply_filters(
+                "jankx_load_template_{$context}",
+                $this->defaultTemplateDirectory,
+                $this->directoryInTheme,
+                $this->templateEngine
+            );
+        }
+        $this->templateEngine->render($templates, $data, $echo);
     }
 }

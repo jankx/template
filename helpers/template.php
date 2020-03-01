@@ -2,8 +2,8 @@
 use Jankx\Template\Template;
 use Jankx\Template\Loader;
 
-function jankx_template($templates, $data = [], $templateLoader = null, $context = '', $echo = true) {
-    if(is_null($templateLoader)) {
+function jankx_template($templates, $data = [], $context = '', $echo = true,  $templateLoader = null) {
+    if (is_null($templateLoader)) {
         $templateLoader = Template::getInstance();
     }
     if (!($templateLoader instanceof Loader)) {
