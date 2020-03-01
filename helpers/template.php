@@ -10,7 +10,7 @@ function jankx_template($templates, $data = [], $templateLoader = null, $context
             sprintf('The template loader must be is instance of %s', Loader::class)
         );
     }
-    
+
     return $templateLoader->render(
         $templates,
         $data,
