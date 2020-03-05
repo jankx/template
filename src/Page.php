@@ -1,9 +1,12 @@
 <?php
 namespace Jankx\Template;
 
+use Jankx\Template\Template;
+
 class Page
 {
     protected static $instance;
+    protected $isCustomTemplate;
     protected $baseFileName;
     protected $templateFile;
     protected $context;
@@ -18,6 +21,17 @@ class Page
     }
 
     /**
+     * Check the page tempalte is custom by plugin or not
+     * If the template called from theme will be return false
+     *
+     * @return boolean
+     */
+    public function isCustomTemplate()
+    {
+        return (boolean)$this->isCustomTemplate;
+    }
+
+    /**
      * Set the original template file to page template
      *
      * @param string $template The WordPress template is called
@@ -26,6 +40,9 @@ class Page
     public function callTemplate($template)
     {
         $this->templateFile = $template;
+        $this->isCustomTemplate = is_numeric(
+            strpos($template, WP_PLUGIN_DIR)
+        );
         $this->baseFileName = basename($template);
         if (preg_match('/(\w{1,})(-[^\.]*)?/', $this->baseFileName, $matches)) {
             $this->context = $matches[1];
@@ -49,6 +66,23 @@ class Page
          * Get site header
          */
         get_header();
+
+        if (empty($context)) {
+            $context = $this->context;
+        }
+        $context = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
+        $template_hook = sprintf('jankx_page_template_%s', $context);
+        if (has_action($template_hook)) {
+            do_action($template_hook, $context, $this->partialName, $this->isCustomTemplate);
+        } else {
+            $templates = [];
+            if ($this->partialName !== '') {
+                $templates[] = sprintf('content/%s-%s', $context, $this->partialName);
+            }
+            $templates[] = 'content/' . $context;
+            jankx_template($templates);
+        }
+
         /**
          * Get site footer
          */
