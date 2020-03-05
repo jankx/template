@@ -44,11 +44,15 @@ class Template
     public function load()
     {
         if (!self::$templateLoaded) {
-            $this->loadTemplateHelpers();
             /**
              * Create a flag to check Jankx template library is loaded
              */
             self::$templateLoaded = true;
+
+            $this->loadTemplateHelpers();
+
+            $pageTemplate = Page::getInstance();
+            add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
         }
 
         if (defined('JANKX_THEME_DEFAULT_ENGINE')) {

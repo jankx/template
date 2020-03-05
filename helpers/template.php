@@ -1,6 +1,17 @@
 <?php
 use Jankx\Template\Template;
 use Jankx\Template\Loader;
+use Jankx\Template\Page;
+
+/**
+ * The Jankx render helper
+ *
+ * @return void
+ */
+function jankx($context = '') {
+    $page = Page::getInstance();
+    $page->render($context);
+}
 
 function jankx_template($templates, $data = [], $context = '', $echo = true,  $templateLoader = null) {
     if (is_null($templateLoader)) {
