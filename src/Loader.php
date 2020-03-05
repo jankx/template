@@ -16,7 +16,7 @@ class Loader
             $this->setTemplateEngine($engine);
         }
         $this->defaultTemplateDirectory = apply_filters(
-            "jankx_template_{$$defaultTemplateDirectory}_default_directory",
+            "jankx_template_{$defaultTemplateDirectory}_default_directory",
             $defaultTemplateDirectory
         );
     }
