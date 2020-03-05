@@ -80,7 +80,10 @@ class Page
                 $templates[] = sprintf('content/%s-%s', $context, $this->partialName);
             }
             $templates[] = 'content/' . $context;
-            jankx_template($templates);
+            jankx_template(
+                $templates,
+                apply_filters("jankx_page_template_{$context}_data", [])
+            );
         }
 
         /**
