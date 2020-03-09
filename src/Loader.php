@@ -6,19 +6,12 @@ use Jankx\Template\Engine\Engine;
 class Loader
 {
     protected $templateEngine;
-    protected $defaultTemplateDirectory;
-    protected $directoryInTheme;
 
-    public function __construct($defaultTemplateDirectory, $directoryInTheme = '', $engine = null)
+    public function __construct($engine = null)
     {
-        $this->directoryInTheme = $directoryInTheme;
         if (!is_null($engine)) {
             $this->setTemplateEngine($engine);
         }
-        $this->defaultTemplateDirectory = apply_filters(
-            "jankx_template_{$defaultTemplateDirectory}_default_directory",
-            $defaultTemplateDirectory
-        );
     }
 
     public function setTemplateEngine($engine)

@@ -15,16 +15,11 @@ class Template
             $templateFileLoader = self::$defautLoader;
         }
         if (empty(self::$instances[$templateFileLoader])) {
-            $loader = new Loader(
-                $templateFileLoader,
-                $directoryInTheme
-            );
             $applyTemplateEngine = apply_filters(
                 'jankx_template_engine',
                 $engineName,
                 $templateFileLoader,
-                $directoryInTheme,
-                $loader
+                $directoryInTheme
             );
             $engine = EngineManager::createEngine(
                 $templateFileLoader,
@@ -34,6 +29,7 @@ class Template
                     'template_location' => $templateFileLoader,
                 )
             );
+            $loader = new Loader();
             $loader->setTemplateEngine($engine);
 
             self::$instances[$templateFileLoader] = $loader;
