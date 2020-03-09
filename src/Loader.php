@@ -30,8 +30,6 @@ class Loader
             $templates = apply_filters(
                 "jankx_load_template_{$context}",
                 $templates,
-                $this->defaultTemplateDirectory,
-                $this->directoryInTheme,
                 $this->templateEngine
             );
         }
