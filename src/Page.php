@@ -44,7 +44,7 @@ class Page
             strpos($template, WP_PLUGIN_DIR)
         );
         $this->baseFileName = basename($template);
-        if (preg_match('/(\w{1,})(-[^\.]*)?/', $this->baseFileName, $matches)) {
+        if (preg_match('/(\w{1,})-?([^\.]*)?/', $this->baseFileName, $matches)) {
             $this->context = $matches[1];
             if (isset($matches[2])) {
                 $this->partialName = $matches[2];
