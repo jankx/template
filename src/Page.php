@@ -72,7 +72,7 @@ class Page
         }
         $context = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
         $template_hook = sprintf('jankx_page_template_%s', $context);
-        
+
         if (has_action($template_hook)) {
             do_action($template_hook, $context, $this->partialName, $this->isCustomTemplate);
         } else {
@@ -80,11 +80,12 @@ class Page
             $templates = [];
 
             if ($this->partialName !== '') {
-                $template_file = sprintf('content/%s-%s', $context, $this->partialName);
+                $template_file = sprintf('content/%s/%s', $context, $this->partialName);
                 if ($is_mobile) {
                     $templates[] = 'mobile/' . $template_file;
                 }
                 $templates[] = $template_file;
+                $templates[] = sprintf('content/%s-%s', $context, $this->partialName);
             }
 
             $template_file = 'content/' . $context;
