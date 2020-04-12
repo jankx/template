@@ -8,12 +8,14 @@ use Jankx\Template\Page;
  *
  * @return void
  */
-function jankx($context = '') {
+function jankx($context = '')
+{
     $page = Page::getInstance();
     $page->render($context);
 }
 
-function jankx_template($templates, $data = [], $context = '', $echo = true,  $templateLoader = null) {
+function jankx_template($templates, $data = [], $context = '', $echo = true, $templateLoader = null)
+{
     if (is_null($templateLoader)) {
         $templateLoader = Template::getInstance();
     }
