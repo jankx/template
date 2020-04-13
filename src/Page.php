@@ -76,21 +76,11 @@ class Page
         if (has_action($template_hook)) {
             do_action($template_hook, $context, $this->partialName, $this->isCustomTemplate);
         } else {
-            $is_mobile = apply_filters('jankx_is_mobile_template', wp_is_mobile());
             $templates = [];
 
             if ($this->partialName !== '') {
-                $template_file = sprintf('content/%s/%s', $context, $this->partialName);
-                if ($is_mobile) {
-                    $templates[] = 'mobile/' . $template_file;
-                }
-                $templates[] = $template_file;
+                $templates[] = sprintf('content/%s/%s', $context, $this->partialName);
                 $templates[] = sprintf('content/%s-%s', $context, $this->partialName);
-            }
-
-            $template_file = 'content/' . $context;
-            if ($is_mobile) {
-                $templates[] = 'mobile/' . $template_file;
             }
             $templates[] = 'content/' . $context;
 
