@@ -99,7 +99,7 @@ class Page
             );
         }
 
-        $footerActiveStatus = apply_filters('jankx_footer_is_activated', true, $this);
+        $footerActiveStatus = apply_filters('jankx_is_active_footer', true, $this);
         if ($footerActiveStatus) {
             $footerName = $this->partialName ? $this->partialName : $this->context;
         } else {
