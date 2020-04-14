@@ -65,7 +65,7 @@ class Page
         /**
          * Get site header
          */
-        get_header();
+        get_header($this->partialName ? $this->partialName : $this->context);
 
         if (empty($context)) {
             $context = $this->context;
@@ -90,9 +90,12 @@ class Page
             );
         }
 
-        /**
-         * Get site footer
-         */
-        get_footer();
+        $footerActiveStatus = apply_filters('jankx_footer_is_activated', true, $this);
+        if ($footerActiveStatus) {
+            $footerName = $this->partialName ? $this->partialName : $this->context;
+        } else {
+            $footerName = 'blank';
+        }
+        get_footer($footerName);
     }
 }
