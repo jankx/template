@@ -32,6 +32,15 @@ class Page
     }
 
     /**
+     * Get the current context
+     *
+     * @return string
+     */
+    public function getContext() {
+        return $this->context;
+    }
+
+    /**
      * Set the original template file to page template
      *
      * @param string $template The WordPress template is called
