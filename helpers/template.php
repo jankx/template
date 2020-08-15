@@ -3,6 +3,10 @@ use Jankx\Template\Template;
 use Jankx\Template\Loader;
 use Jankx\Template\Page;
 
+if (function_exists('jankx_template')) {
+    return;
+}
+
 /**
  * The Jankx render helper
  *
