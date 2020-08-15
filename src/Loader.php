@@ -33,6 +33,6 @@ class Loader
                 $this->templateEngine
             );
         }
-        $this->templateEngine->render($templates, $data, $echo);
+        return $this->templateEngine->render($templates, $data, $echo);
     }
 }
