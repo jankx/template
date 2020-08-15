@@ -28,6 +28,7 @@ function jankx_template($templates, $data = [], $context = '', $echo = true, $te
     return $templateLoader->render(
         $templates,
         $data,
+        $context,
         $echo
     );
 }
