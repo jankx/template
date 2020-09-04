@@ -36,7 +36,8 @@ class Page
      *
      * @return string
      */
-    public function getContext() {
+    public function getContext()
+    {
         return $this->context;
     }
 

@@ -11,10 +11,10 @@ class Template
 
     public static function getInstance($templateFileLoader = null, $directoryInTheme = '', $engineName = 'wordpress')
     {
-        if (is_null($templateFileLoader) && self::$defautLoader) {
-            $templateFileLoader = self::$defautLoader;
+        if (is_null($templateFileLoader) && static::$defautLoader) {
+            $templateFileLoader = static::$defautLoader;
         }
-        if (empty(self::$instances[$templateFileLoader])) {
+        if (empty(static::$instances[$templateFileLoader])) {
             $applyTemplateEngine = apply_filters(
                 'jankx_template_engine',
                 $engineName,
@@ -32,34 +32,34 @@ class Template
             $loader = new Loader();
             $loader->setTemplateEngine($engine);
 
-            self::$instances[$templateFileLoader] = $loader;
+            static::$instances[$templateFileLoader] = $loader;
         }
-        return self::$instances[$templateFileLoader];
+        return static::$instances[$templateFileLoader];
     }
 
     public function load()
     {
-        if (!self::$templateLoaded) {
+        if (!static::$templateLoaded) {
             /**
              * Create a flag to check Jankx template library is loaded
              */
-            self::$templateLoaded = true;
+            static::$templateLoaded = true;
 
-            $this->loadTemplateHelpers();
+            static::loadTemplateHelpers();
 
             $pageTemplate = Page::getInstance();
             add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
         }
 
         if (defined('JANKX_THEME_DEFAULT_ENGINE')) {
-            self::$defautLoader = apply_filters(
+            static::$defautLoader = apply_filters(
                 'jankx_default_template_loader',
                 JANKX_THEME_DEFAULT_ENGINE
             );
         }
     }
 
-    public function loadTemplateHelpers()
+    public static function loadTemplateHelpers()
     {
         $helpersDir = realpath(dirname(__FILE__) . '/../helpers');
 
