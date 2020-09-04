@@ -18,9 +18,6 @@
   "autoload": {
     "psr-4": {
       "Jankx\\Template\\": "src/"
-    },
-    "files": [
-      "./helpers/template.php"
-    ]
+    }
   }
 }
