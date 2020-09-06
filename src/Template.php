@@ -51,12 +51,15 @@ class Template
             add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
         }
 
-        if (defined('JANKX_THEME_DEFAULT_ENGINE')) {
-            static::$defautLoader = apply_filters(
-                'jankx_default_template_loader',
-                JANKX_THEME_DEFAULT_ENGINE
-            );
-        }
+        static::$defautLoader = static::getDefaultLoader();
+    }
+
+    public static function getDefaultLoader()
+    {
+        return apply_filters(
+            'jankx_default_template_loader',
+            defined('JANKX_THEME_DEFAULT_ENGINE') ? JANKX_THEME_DEFAULT_ENGINE : null
+        );
     }
 
     public static function loadTemplateHelpers()
