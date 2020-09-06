@@ -9,3 +9,11 @@
   </head>
   <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
+
+    <?php do_action( 'jankx_template_before_header' ); ?>
+    <header id="jankx-site-header" class="jankx-site-header">
+        <?php do_action( 'jankx_template_before_header_content'); ?>
+
+        <?php do_action( 'jankx_template_before_after_content'); ?>
+    </header>
+    <?php do_action( 'jankx_template_after_header' ); ?>
