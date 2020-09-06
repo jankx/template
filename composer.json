@@ -12,7 +12,6 @@
   ],
   "require": {
     "jankx/asset": "dev-master",
-    "jankx/template-engine": "dev-master",
     "jankx/ui-framework": "dev-master"
   },
   "autoload": {
