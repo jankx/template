@@ -42,7 +42,8 @@ class Page
      *
      * @return string
      */
-    public function getTemplateFile() {
+    public function getTemplateFile()
+    {
         return $this->templateFile;
     }
 
@@ -51,7 +52,8 @@ class Page
      *
      * @return string
      */
-    public function getBaseFileName() {
+    public function getBaseFileName()
+    {
         return $this->baseFileName;
     }
 
@@ -86,7 +88,7 @@ class Page
         }
 
         // Create new hook to setup page
-        do_action( 'jankx_call_page_template', $this );
+        do_action('jankx_call_page_template', $this);
 
         return $template;
     }
