@@ -27,7 +27,7 @@ if (! function_exists('jankx_template')) {
             $templateLoader = Template::getInstance();
         }
         if (! ( $templateLoader instanceof Loader )) {
-            throw new \Error(
+            throw new \Exception(
                 sprintf('The template loader must be is instance of %s', Loader::class)
             );
         }

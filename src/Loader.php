@@ -17,7 +17,7 @@ class Loader
     public function setTemplateEngine($engine)
     {
         if (!($engine instanceof Engine)) {
-            throw new \Error(
+            throw new \Exception(
                 sprintf('The template engine must is an instance of %s', Engine::class)
             );
         }
