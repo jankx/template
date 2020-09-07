@@ -38,6 +38,24 @@ class Page
     }
 
     /**
+     * Get the original template file
+     *
+     * @return string
+     */
+    public function getTemplateFile() {
+        return $this->templateFile;
+    }
+
+    /**
+     * Get the original template file name
+     *
+     * @return string
+     */
+    public function getBaseFileName() {
+        return $this->baseFileName;
+    }
+
+    /**
      * Get the current context
      *
      * @return string
