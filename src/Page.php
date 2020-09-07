@@ -85,6 +85,9 @@ class Page
             }
         }
 
+        // Create new hook to setup page
+        do_action( 'jankx_call_page_template', $this );
+
         return $template;
     }
 
