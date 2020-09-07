@@ -6,6 +6,7 @@ use Jankx\Template\Template;
 class Page
 {
     protected static $instance;
+
     protected $isCustomTemplate;
     protected $baseFileName;
     protected $templateFile;
@@ -18,6 +19,11 @@ class Page
             self::$instance = new self();
         }
         return self::$instance;
+    }
+
+    private function __construct()
+    {
+        // Please create the Jankx Page via method getInstance()
     }
 
     /**

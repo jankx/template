@@ -48,6 +48,8 @@ class Template
             static::loadTemplateHelpers();
 
             $pageTemplate = Page::getInstance();
+
+            // Call the Jankx Page
             add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
         }
 
