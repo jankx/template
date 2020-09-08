@@ -112,11 +112,11 @@ class Page
         if ($context === 'single' && empty($this->partialName)) {
             $this->partialName = get_post_type();
         }
-        $context = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
-        $template_hook = sprintf('jankx_page_template_%s_%s', $context, $this->partialName);
+        $context      = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
+        $templateHook = sprintf('jankx_page_template_%s_%s', $context, $this->partialName);
 
-        if (has_action($template_hook)) {
-            do_action($template_hook, $context, $this->partialName, $this->isCustomTemplate);
+        if (has_action($templateHook)) {
+            do_action($templateHook, $context, $this->partialName, $this->isCustomTemplate);
         } else {
             $templates = [];
 
