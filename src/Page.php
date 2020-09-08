@@ -109,7 +109,7 @@ class Page
         if (empty($context)) {
             $context = $this->context;
         }
-        if($context === 'single' && empty($this->partialName)) {
+        if ($context === 'single' && empty($this->partialName)) {
             $this->partialName = get_post_type();
         }
         $context = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
