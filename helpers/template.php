@@ -24,7 +24,7 @@ if (! function_exists('jankx_template')) {
     function jankx_template($templates, $data = array(), $context = '', $echo = true, $templateLoader = null)
     {
         if (is_null($templateLoader)) {
-            $templateLoader = Template::getInstance();
+            $templateLoader = Template::getLoader();
         }
         if (! ( $templateLoader instanceof Loader )) {
             throw new \Exception(

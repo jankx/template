@@ -109,8 +109,11 @@ class Page
         if (empty($context)) {
             $context = $this->context;
         }
+        if($context === 'single' && empty($this->partialName)) {
+            $this->partialName = get_post_type();
+        }
         $context = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
-        $template_hook = sprintf('jankx_page_template_%s', $context);
+        $template_hook = sprintf('jankx_page_template_%s_%s', $context, $this->partialName);
 
         if (has_action($template_hook)) {
             do_action($template_hook, $context, $this->partialName, $this->isCustomTemplate);

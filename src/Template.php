@@ -6,10 +6,9 @@ use Jankx\Template\Engine\EngineManager;
 class Template
 {
     protected static $instances = [];
-    protected static $templateLoaded;
     protected static $defautLoader;
 
-    public static function getInstance($templateFileLoader = null, $directoryInTheme = '', $engineName = 'wordpress')
+    public static function getLoader($templateFileLoader = null, $directoryInTheme = '', $engineName = 'wordpress')
     {
         if (is_null($templateFileLoader) && static::$defautLoader) {
             $templateFileLoader = static::$defautLoader;
@@ -37,28 +36,13 @@ class Template
         return static::$instances[$templateFileLoader];
     }
 
-    private function __construct()
+    public static function setDefautLoader($loader = null)
     {
-        // Please create instance via getInstance method
-    }
-
-    public function load()
-    {
-        if (!static::$templateLoaded) {
-            /**
-             * Create a flag to check Jankx template library is loaded
-             */
-            static::$templateLoaded = true;
-
-            static::loadTemplateHelpers();
-
-            $pageTemplate = Page::getInstance();
-
-            // Call the Jankx Page
-            add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
+        if (is_null($loader)) {
+            static::$defautLoader = static::getDefaultLoader();
+        } else {
+            static::$defautLoader = $loader;
         }
-
-        static::$defautLoader = static::getDefaultLoader();
     }
 
     public static function getDefaultLoader()
