@@ -37,6 +37,11 @@ class Template
         return static::$instances[$templateFileLoader];
     }
 
+    private function __construct()
+    {
+        // Please create instance via getInstance method
+    }
+
     public function load()
     {
         if (!static::$templateLoaded) {
