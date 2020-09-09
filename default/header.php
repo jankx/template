@@ -19,7 +19,9 @@
               apply_filters('jankx_component_header_props', array(
                 'preset' => 'default'
               )),
-              apply_filters('jankx_component_header_options', array())
+              apply_filters('jankx_component_header_options', array(
+                'echo' => true,
+              ))
           ); ?>
 
         <?php do_action( 'jankx_template_before_after_content'); ?>
