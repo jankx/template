@@ -1,4 +1,4 @@
 <form <?php echo $form_attributes; ?>>
-    <input type="text" placeholder="<?php echo $placeholder; ?>">
+    <input <?php echo $input_attributes; ?>>
     <button type="submit"><?php echo $submit_text; ?></button>
 </form>
