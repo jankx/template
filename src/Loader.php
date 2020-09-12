@@ -44,6 +44,18 @@ class Loader
         Template::setDefautLoader();
     }
 
+    public function searchTemplate($templates, $context = null)
+    {
+        if ($context) {
+            $templates = apply_filters(
+                "jankx_load_template_{$context}",
+                $templates,
+                $this->templateEngine
+            );
+        }
+        return $this->templateEngine->searchTemplate($templates);
+    }
+
     public function render($templates, $data = [], $context = null, $echo = true)
     {
         if ($context) {
