@@ -107,7 +107,9 @@ class Page
         get_header($this->partialName ? $this->partialName : $this->context);
 
         // Setup post data
-        the_post();
+        if (is_singular() && have_posts()) {
+            the_post();
+        }
 
         if (empty($context)) {
             $context = $this->context;
