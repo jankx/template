@@ -106,6 +106,9 @@ class Page
          */
         get_header($this->partialName ? $this->partialName : $this->context);
 
+        // Setup post data
+        the_post();
+
         if (empty($context)) {
             $context = $this->context;
         }
@@ -113,7 +116,7 @@ class Page
             $this->partialName = get_post_type();
         }
         $context      = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
-        $templateHook = sprintf('jankx_page_template_%s_%s', $context, $this->partialName);
+        $templateHook = sprintf('jankx_template_page_%s_%s', $context, $this->partialName);
 
         if (has_action($templateHook)) {
             do_action($templateHook, $context, $this->partialName, $this->isCustomTemplate);
@@ -128,7 +131,7 @@ class Page
 
             jankx_template(
                 $templates,
-                apply_filters("jankx_page_template_{$context}_data", [])
+                apply_filters("jankx_template_page_{$context}_data", [])
             );
         }
 
