@@ -59,6 +59,18 @@ class Loader
     public function render($templates, $data = [], $context = null, $echo = true)
     {
         if ($context) {
+            $pre = apply_filters("jankx_pre_render_template_{$context}", null, $templates, $context, $this->templateEngine);
+
+            if (!is_null($pre)) {
+                if (!$echo) {
+                    return $pre;
+                }
+
+                echo $pre;
+                // Stop render when $pre render has a value
+                return;
+            }
+
             $templates = apply_filters(
                 "jankx_load_template_{$context}",
                 $templates,
