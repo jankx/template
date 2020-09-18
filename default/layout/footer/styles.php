@@ -1,6 +1,6 @@
 <?php
 
-switch($numOfFooterWidgets) {
+switch ($numOfFooterWidgets) {
     case 2:
         style(".footer-widgets-area .jankx-footer-widget{
             width: 100%;
@@ -8,7 +8,7 @@ switch($numOfFooterWidgets) {
         style(".footer-widgets-area .jankx-footer-widget{
             width: 50%;
         }", "(min-width: 991px)");
-    break;
+        break;
     case 3:
         style(".footer-widgets-area .jankx-footer-widget.widget-area-1 {
             width: 100%;
@@ -28,7 +28,7 @@ switch($numOfFooterWidgets) {
         .footer-widgets-area .jankx-footer-widget.widget-area-2, .footer-widgets-area .jankx-footer-widget.widget-area-3 {
             width: 27.5%;
         }", "(min-width: 1200px)");
-    break;
+        break;
     case 4:
         style(".footer-widgets-area .jankx-footer-widget {
             width: 50%;
@@ -36,11 +36,11 @@ switch($numOfFooterWidgets) {
         style(".footer-widgets-area .jankx-footer-widget {
             width: 25%;
         }", "(min-width: 991px)");
-    break;
+        break;
     default:
         style(".footer-widgets-area .jankx-footer-widget {
             float: none;
             width: 100%;
         }", "all");
-    break;
+        break;
 }

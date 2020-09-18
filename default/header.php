@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
     <head>
-        <meta charset="<?php bloginfo( 'charset' ); ?>">
+        <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" >
         <link rel="profile" href="https://gmpg.org/xfn/11">
         <title><?php wp_title(); ?></title>
@@ -10,9 +10,9 @@
     <body <?php body_class(); ?>>
         <?php wp_body_open(); ?>
 
-        <?php do_action( 'jankx_template_before_header' ); ?>
+        <?php do_action('jankx_template_before_header'); ?>
         <header id="jankx-site-header" class="jankx-site-header">
-            <?php do_action( 'jankx_template_before_header_content'); ?>
+            <?php do_action('jankx_template_before_header_content'); ?>
 
                 <?php jankx_component(
                     'header',
@@ -24,6 +24,6 @@
                     ))
                 ); ?>
 
-            <?php do_action( 'jankx_template_before_after_content'); ?>
+            <?php do_action('jankx_template_before_after_content'); ?>
         </header>
-        <?php do_action( 'jankx_template_after_header' ); ?>
+        <?php do_action('jankx_template_after_header'); ?>
