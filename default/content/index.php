@@ -1,11 +1,12 @@
+<?php
+/**
+ * Content page index
+ */
 
-  <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
-    </div>
-  </section>
+/**
+ * The index page content will be render via action hook
+ *
+ * Hooked:
+ *  - Jankx\PostLayout\PostTemplateLoader::render
+ */
+do_action('jankx_template_page_index_content', 'home');
