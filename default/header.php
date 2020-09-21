@@ -24,6 +24,6 @@
                     ))
                 ); ?>
 
-            <?php do_action('jankx_template_before_after_content'); ?>
+            <?php do_action('jankx_template_after_header_content'); ?>
         </header>
         <?php do_action('jankx_template_after_header'); ?>
