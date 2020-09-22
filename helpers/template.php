@@ -40,3 +40,37 @@ if (! function_exists('jankx_template')) {
         );
     }
 }
+
+if (!function_exists('jankx_open_container')) {
+    function jankx_open_container($context = null) {
+        $open_html = apply_filters('jankx_template_pre_open_container', null);
+        if (!$open_html) {
+            $open_html = apply_filters(
+                'jankx_template_open_container',
+                jankx_template('common/container-open', array(), null, false)
+            );
+        }
+        echo $open_html;
+
+        if ($context) {
+            do_action("jankx_template_opened_{$context}_container");
+        }
+    }
+}
+
+if (!function_exists('jankx_close_container')) {
+    function jankx_close_container($context = null) {
+        if ($context) {
+            do_action("jankx_template_closing_{$context}_container");
+        }
+
+        $close_html = apply_filters('jankx_template_pre_close_container', null);
+        if (!$close_html) {
+            $close_html = apply_filters(
+                'jankx_template_close_container',
+                jankx_template('common/container-close', array(), null, false)
+            );
+        }
+        echo $close_html;
+    }
+}

@@ -14,6 +14,8 @@
         <header id="jankx-site-header" class="jankx-site-header">
             <?php do_action('jankx_template_before_header_content'); ?>
 
+            <?php jankx_open_container(); ?>
+
                 <?php jankx_component(
                     'header',
                     apply_filters('jankx_component_header_props', array(
@@ -23,6 +25,8 @@
                         'echo' => true,
                     ))
                 ); ?>
+
+            <?php jankx_close_container(); ?>
 
             <?php do_action('jankx_template_after_header_content'); ?>
         </header>
