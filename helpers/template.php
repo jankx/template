@@ -43,12 +43,17 @@ if (! function_exists('jankx_template')) {
 
 if (!function_exists('jankx_open_container')) {
     function jankx_open_container($custom_classes = '', $context = null) {
+        do_action('jankx_template_before_open_container');
+
         $open_html = apply_filters('jankx_template_pre_open_container', null);
         if (!$open_html) {
             $open_html = apply_filters(
                 'jankx_template_open_container',
                 jankx_template('common/container-open', array(
-                    'css_classes' => implode(' ', (array) $custom_classes)
+                    'css_classes' => implode(' ', (array) apply_filters(
+                        'jankx_template_the_container_classes',
+                        $custom_classes
+                    ))
                 ), null, false)
             );
         }
@@ -74,5 +79,6 @@ if (!function_exists('jankx_close_container')) {
             );
         }
         echo $close_html;
+        do_action('jankx_template_after_close_container');
     }
 }
