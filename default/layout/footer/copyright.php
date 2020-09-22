@@ -1,6 +1,6 @@
-<div class="jankx-copyright">
-    <?php jankx_open_container(); ?>
+<?php jankx_open_container(); ?>
+    <div class="jankx-copyright">
         <?php echo $copyright; ?>
         <?php echo $jankx_credit; ?>
-    <?php jankx_close_container(); ?>
-</div>
+    </div>
+<?php jankx_close_container(); ?>
