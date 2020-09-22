@@ -1,3 +1,3 @@
     <div class="jankx-clearfix"></div>
-    </div>
+    <?php jankx_close_container(); ?>
 </div>

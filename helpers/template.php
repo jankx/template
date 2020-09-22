@@ -42,12 +42,14 @@ if (! function_exists('jankx_template')) {
 }
 
 if (!function_exists('jankx_open_container')) {
-    function jankx_open_container($context = null) {
+    function jankx_open_container($custom_classes = '', $context = null) {
         $open_html = apply_filters('jankx_template_pre_open_container', null);
         if (!$open_html) {
             $open_html = apply_filters(
                 'jankx_template_open_container',
-                jankx_template('common/container-open', array(), null, false)
+                jankx_template('common/container-open', array(
+                    'css_classes' => implode(' ', (array) $custom_classes)
+                ), null, false)
             );
         }
         echo $open_html;

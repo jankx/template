@@ -1,1 +1,1 @@
-<div class="jankx-container container">
+<div class="jankx-container container <?php echo $css_classes; ?>">

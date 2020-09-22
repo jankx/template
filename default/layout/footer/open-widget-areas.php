@@ -1,2 +1,2 @@
 <div class="footer-widgets-area <?php echo $footer_widget_classes; ?>">
-    <div class="widgets-area-inner">
+    <?php jankx_open_container('widgets-area-inner'); ?>
