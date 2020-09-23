@@ -1,6 +1,6 @@
 {
   "name": "jankx/template",
-  "description": "Jankx template manager usable to load template with support override, caching",
+  "description": "Jankx Template is used to load the template support override, caching.",
   "type": "library",
   "license": "MIT",
   "minimum-stability": "dev",
