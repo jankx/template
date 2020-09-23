@@ -1,2 +1,2 @@
     <div class="jankx-clearfix"></div>
-</div>
+</div> <!-- Close .main-content-sidebar-inner -->
