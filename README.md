@@ -1,2 +1,4 @@
-# template
-Jankx template manager usable to load template with support override, caching
+Jankx Template
+=
+
+Jankx Template is used to load the template support override, caching. 
