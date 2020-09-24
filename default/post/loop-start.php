@@ -1,0 +1,1 @@
+<div class="jankx-posts <?php echo $list_type; ?>">
