@@ -10,23 +10,15 @@
         <?php wp_body_open(); ?>
 
         <?php do_action('jankx_template_before_header'); ?>
-        <header id="jankx-site-header" class="jankx-site-header">
-            <?php do_action('jankx_template_before_header_content'); ?>
-
-            <?php jankx_open_container(); ?>
-
-                <?php jankx_component(
-                    'header',
-                    apply_filters('jankx_component_header_props', array(
-                        'preset' => 'default'
-                    )),
-                    apply_filters('jankx_component_header_options', array(
-                        'echo' => true,
-                    ))
-                ); ?>
-
-            <?php jankx_close_container(); ?>
-
-            <?php do_action('jankx_template_after_header_content'); ?>
-        </header>
+            <?php
+            jankx_component(
+                'header',
+                apply_filters('jankx_component_header_props', array(
+                    'preset' => 'default'
+                )),
+                apply_filters('jankx_component_header_options', array(
+                    'echo' => true,
+                ))
+            );
+            ?>
         <?php do_action('jankx_template_after_header'); ?>
