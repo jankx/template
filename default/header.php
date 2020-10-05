@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?>>
+<html
+    class="<?php echo isset($html_class) ? implode(' ', (array) $html_class) : 'no-js'; ?>"
+    <?php language_attributes(); ?>
+>
     <head>
         <meta charset="<?php bloginfo('charset'); ?>">
         <link rel="profile" href="https://gmpg.org/xfn/11">
