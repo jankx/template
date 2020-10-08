@@ -7,7 +7,7 @@
  * The index page content will be render via action hook
  *
  * Hooked:
- *  - Jankx\PostLayout\PostTemplateLoader::render
+ *  - N/A
  */
 
 if (is_post_type_archive()) {
