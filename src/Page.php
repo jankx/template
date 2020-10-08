@@ -114,8 +114,14 @@ class Page
         if (empty($context)) {
             $context = $this->context;
         }
-        if ($context === 'single' && empty($this->partialName)) {
-            $this->partialName = get_post_type();
+        if (empty($this->partialName)) {
+            if ($context === 'single') {
+                $this->partialName = get_post_type();
+            } elseif ($context === 'taxonomy') {
+                $context = 'archive';
+                $queried_object = get_queried_object();
+                $this->partialName = $queried_object->taxonomy;
+            }
         }
         $context      = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
         $templateHook = sprintf('jankx_template_page_%s_%s', $context, $this->partialName);
