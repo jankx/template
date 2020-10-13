@@ -47,11 +47,16 @@ function jankx_container_css_class($custom_classes) {
         'container',
     );
 
-    $css_class = (array) apply_filters(
+    if (empty($custom_classes)) {
+        $custom_classes = array();
+    }
+
+    $css_class = apply_filters(
         'jankx_template_the_container_classes',
         array_merge($css_class, (array)$custom_classes)
     );
-    return array_unique($css_class);
+
+    return array_unique($css_class, SORT_STRING);
 }
 
 if (!function_exists('jankx_open_container')) {
