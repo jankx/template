@@ -11,8 +11,7 @@ use Jankx\PostLayout\PostLayoutManager;
     global $wp_query;
     if ($wp_query->have_posts()):
         ?>
-        <h2 class="search-subtitle"><?php echo $post_type_object->label; ?></h2>
-        <div class="search-resuls-<?php echo $post_type; ?>">
+        <div class="search-resuls">
         <?php
             $layoutManager = PostLayoutManager::getInstance();
             $layoutStyle   = apply_filters(
