@@ -44,6 +44,9 @@ class Page
      */
     public function getTemplateFile()
     {
+        if (PHP_OS === 'WINNT') {
+            return str_replace('\\', '/', $this->templateFile);
+        }
         return $this->templateFile;
     }
 
