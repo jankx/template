@@ -1,7 +1,7 @@
 <div <?php post_class(array_merge(array('post-large-image'), $post_class)); ?>>
     <div class="post-thumbnail">
         <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-            <?php jankx_the_post_thumbnail('medium'); ?>
+            <?php jankx_the_post_thumbnail('medium_large'); ?>
         </a>
     </div>
     <div class="post-infos">
