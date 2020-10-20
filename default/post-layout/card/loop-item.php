@@ -2,7 +2,7 @@
     <?php if (!empty($show_thumbnail)) : ?>
     <div class="post-thumbnail">
         <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-            <?php jankx_the_post_thumbnail('thumbnail'); ?>
+            <?php jankx_the_post_thumbnail($thumbnail_size); ?>
         </a>
     </div>
     <?php endif; ?>
