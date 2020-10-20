@@ -1,4 +1,4 @@
-<div <?php post_class('post-large-image'); ?>>
+<div <?php post_class(array('loop-item', 'post-large-image')); ?>>
     <div class="post-thumbnail">
         <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
             <?php jankx_the_post_thumbnail('medium'); ?>
