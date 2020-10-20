@@ -8,7 +8,7 @@ if (has_nav_menu($args['theme_location'])):
     }
 
         wp_nav_menu($args);
-        
+
     if ($args['open_container']) {
         jankx_close_container();
     }
