@@ -10,5 +10,9 @@
             <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
         </h2>
         <?php endif; ?>
+
+        <?php if ($show_excerpt): ?>
+        <div class="post-exceprt"><?php the_excerpt(); ?></div>
+        <?php endif; ?>
     </div>
 </div>
