@@ -14,5 +14,18 @@
         <?php if ($show_excerpt): ?>
         <div class="post-exceprt"><?php the_excerpt(); ?></div>
         <?php endif; ?>
+        <?php if (!empty($post_meta_features)): ?>
+            <ul class="post-metas">
+            <?php foreach($post_meta_features as $feature => $value): ?>
+                <li class=<?php echo $feature; ?>>
+                <?php
+                    do_action("jankx_post_layout_meta_before_{$feature}");
+                    echo call_user_func($get_meta_value, $value, $feature);
+                    do_action("jankx_post_layout_meta_after_{$feature}");
+                ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     </div>
 </div>
