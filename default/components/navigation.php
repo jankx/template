@@ -1,6 +1,6 @@
 <?php
-if (has_nav_menu($args['theme_location'])):
-?>
+if (has_nav_menu($args['theme_location'])) :
+    ?>
 <nav class="jankx-ui navigation navigation-<?php echo $args['theme_location']; ?>">
     <?php
     if ($args['open_container']) {

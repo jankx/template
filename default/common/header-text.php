@@ -14,9 +14,9 @@ $attributes = array(
 );
 ?>
 <h3 <?php echo jankx_generate_html_attributes($attributes); ?>>
-    <?php if ($u): ?>
+    <?php if ($u) : ?>
         <a href="<?php echo $url; ?>"><?php echo $text; ?></a>
-    <?php else: ?>
-    <?php echo $text; ?>
+    <?php else : ?>
+        <?php echo $text; ?>
     <?php endif; ?>
 </h3>

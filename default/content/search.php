@@ -9,7 +9,7 @@ use Jankx\PostLayout\PostLayoutManager;
     </h1>
     <?php
     global $wp_query;
-    if ($wp_query->have_posts()):
+    if ($wp_query->have_posts()) :
         ?>
         <div class="search-resuls">
         <?php
@@ -24,12 +24,12 @@ use Jankx\PostLayout\PostLayoutManager;
             $postLayoutInstance = new $layoutCls($wp_query);
 
             // Render posts
-            if (is_a($postLayoutInstance, PostLayout::class)) {
-                echo $postLayoutInstance->render();
-            }
+        if (is_a($postLayoutInstance, PostLayout::class)) {
+            echo $postLayoutInstance->render();
+        }
         ?>
         </div>
-    <?php else: ?>
+    <?php else : ?>
     <div class="no-results"><?php _e('Not found', 'jankx'); ?></div>
     <?php endif; ?>
 

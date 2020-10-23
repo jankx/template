@@ -5,18 +5,18 @@
         </a>
     </div>
     <div class="post-infos">
-        <?php if ($show_title): ?>
+        <?php if ($show_title) : ?>
         <h2 class="post-title">
             <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
         </h2>
         <?php endif; ?>
 
-        <?php if ($show_excerpt): ?>
+        <?php if ($show_excerpt) : ?>
         <div class="post-exceprt"><?php the_excerpt(); ?></div>
         <?php endif; ?>
-        <?php if (!empty($post_meta_features)): ?>
+        <?php if (!empty($post_meta_features)) : ?>
             <ul class="post-metas">
-            <?php foreach($post_meta_features as $feature => $value): ?>
+            <?php foreach ($post_meta_features as $feature => $value) : ?>
                 <li class=<?php echo $feature; ?>>
                 <?php
                     do_action("jankx_post_layout_meta_before_{$feature}");
