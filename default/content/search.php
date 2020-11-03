@@ -1,5 +1,5 @@
 <?php
-use Jankx\PostLayout\PostLayout;
+use Jankx\Widget\Renderers\PostsRenderer;
 use Jankx\PostLayout\PostLayoutManager;
 ?>
 <div class="seach-results-main">
@@ -13,20 +13,25 @@ use Jankx\PostLayout\PostLayoutManager;
         ?>
         <div class="search-resuls">
         <?php
-            $layoutManager = PostLayoutManager::getInstance();
             $layoutStyle   = apply_filters(
                 "jankx_search_results_layout_style",
                 PostLayoutManager::CARD
             );
-            $layoutCls     = $layoutManager->getLayoutClass($layoutStyle);
+            $postRenderer = PostsRenderer::prepare(
+                array(
+                    'query' => $GLOBALS['wp_query'],
+                    'columns' => 4,
+                    'show_excerpt' => true,
+                    'excerpt_length' => 15,
+                    'show_postdate' => true,
+                )
+            );
+            $postRenderer->setLayout($layoutStyle);
 
-            // Create post layout style instance
-            $postLayoutInstance = new $layoutCls($wp_query);
+            echo $postRenderer->render();
 
-            // Render posts
-        if (is_a($postLayoutInstance, PostLayout::class)) {
-            echo $postLayoutInstance->render();
-        }
+            // Create pagination
+            echo jankx_paginate();
         ?>
         </div>
     <?php else : ?>
