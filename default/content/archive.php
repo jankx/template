@@ -31,4 +31,7 @@ if (has_action($template_hook)) {
         ),
     ));
     echo $postLayout->render();
+
+    // Create pagination
+    jankx_paginate();
 }
