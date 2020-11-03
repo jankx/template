@@ -35,5 +35,5 @@ if (has_action($template_hook)) {
     echo $postRenderer->render();
 
     // Create pagination
-    jankx_paginate();
+    echo jankx_paginate();
 }
