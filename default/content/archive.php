@@ -3,6 +3,7 @@
  * Content page index
  */
 use Jankx\PostLayout\PostLayoutManager;
+use Jankx\Widget\Renderers\PostsRenderer;
 
 /**
  * The index page content will be render via action hook
@@ -20,17 +21,18 @@ if (is_post_type_archive()) {
 if (has_action($template_hook)) {
     do_action($template_hook, get_queried_object());
 } else {
-    $layoutManager = PostLayoutManager::getInstance();
-    $postLayoutCls = $layoutManager->getLayoutClass(PostLayoutManager::CARD);
-    $postLayout = new $postLayoutCls($GLOBALS['wp_query']);
-    $postLayout->setOptions(array(
-        'columns' => 4,
-        'show_excerpt' => true,
-        'post_meta_features' => array(
-            'post_date' => true,
-        ),
-    ));
-    echo $postLayout->render();
+    $postRenderer = PostsRenderer::prepare(
+        array(
+            'query' => $GLOBALS['wp_query'],
+            'columns' => 4,
+            'show_excerpt' => true,
+            'excerpt_length' => 15,
+            'show_postdate' => true,
+        )
+    );
+    $postRenderer->setLayout(PostLayoutManager::CARD);
+
+    echo $postRenderer->render();
 
     // Create pagination
     jankx_paginate();
