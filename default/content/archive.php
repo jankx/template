@@ -21,6 +21,11 @@ if (is_post_type_archive()) {
 if (has_action($template_hook)) {
     do_action($template_hook, get_queried_object());
 } else {
+    jankx_template(
+        'common/archive-page-header',
+        array('queried_object' => get_queried_object())
+    );
+
     $postRenderer = PostsRenderer::prepare(
         array(
             'query' => $GLOBALS['wp_query'],
