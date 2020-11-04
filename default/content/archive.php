@@ -33,6 +33,7 @@ if (has_action($template_hook)) {
             'show_excerpt' => true,
             'excerpt_length' => 15,
             'show_postdate' => true,
+            'thumbnail_size' => 'medium'
         )
     );
     $postRenderer->setLayout(PostLayoutManager::CARD);
