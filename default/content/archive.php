@@ -31,6 +31,7 @@ if (has_action($template_hook)) {
             'query' => $GLOBALS['wp_query'],
             'columns' => 4,
             'show_excerpt' => true,
+            'show_paginate' => true,
             'excerpt_length' => 15,
             'show_postdate' => true,
             'thumbnail_size' => 'medium'
