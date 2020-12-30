@@ -23,7 +23,9 @@
                 <li class=<?php echo $feature; ?>>
                 <?php
                     do_action("jankx_post_layout_meta_before_{$feature}");
-                    echo call_user_func($get_meta_value, $value, $feature);
+
+                    echo $_post_layout::get_meta_value($value, $feature);
+
                     do_action("jankx_post_layout_meta_after_{$feature}");
                 ?>
                 </li>
