@@ -11,7 +11,7 @@
         <?php do_action('jankx_post_layout_meta_before_post_comments'); ?>
         <?php
             $count = get_comments_number();
-            printf(_n('%s comment', '%s comments', $count, 'jankx'), number_format_i18n( $count ));
+            printf(_n('%s comment', '%s comments', $count, 'jankx'), number_format_i18n($count));
         ?>
     </li>
 </ul>
