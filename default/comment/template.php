@@ -1,6 +1,6 @@
 <?php defined('ABSPATH') || exit('Cheating huh?'); ?>
 
-<?php do_action( 'jankx_template_before_list_comments', $comments ); ?>
+<?php do_action('jankx_template_before_list_comments', $comments); ?>
 
 <div class="comments" id="comments">
     <div class="comments-header section-inner small max-percentage">
@@ -15,14 +15,14 @@
         <?php
         wp_list_comments($list_comments_args);
 
-        if ($comment_pagination):
+        if ($comment_pagination) :
             $pagination_classes = '';
 
             // If we're only showing the "Next" link, add a class indicating so.
             if (false === strpos($comment_pagination, 'prev page-numbers')) {
                 $pagination_classes = ' only-next';
             }
-        ?>
+            ?>
 
             <nav class="comments-pagination pagination<?php echo $pagination_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>" aria-label="<?php esc_attr_e('Comments', 'twentytwenty'); ?>">
                 <?php echo wp_kses_post($comment_pagination); ?>
@@ -34,4 +34,4 @@
 </div><!-- comments -->
 
 <?php
-do_action( 'jankx_template_after_list_comments', $comments );
+do_action('jankx_template_after_list_comments', $comments);
