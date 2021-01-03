@@ -1,88 +1,37 @@
 <?php
 defined('ABSPATH') || exit('');
-
-if ($comments) {
-    ?>
-
+?>
     <div class="comments" id="comments">
-
-        <?php
-        $comments_number = absint(get_comments_number());
-        ?>
-
         <div class="comments-header section-inner small max-percentage">
 
             <h2 class="comment-reply-title">
-            <?php
-            if (! have_comments()) {
-                _e('Leave a comment', 'twentytwenty');
-            } elseif (1 === $comments_number) {
-                /* translators: %s: Post title. */
-                printf(_x('One reply on &ldquo;%s&rdquo;', 'comments title', 'twentytwenty'), get_the_title());
-            } else {
-                printf(
-                    /* translators: 1: Number of comments, 2: Post title. */
-                    _nx(
-                        '%1$s reply on &ldquo;%2$s&rdquo;',
-                        '%1$s replies on &ldquo;%2$s&rdquo;',
-                        $comments_number,
-                        'comments title',
-                        'twentytwenty'
-                    ),
-                    number_format_i18n($comments_number),
-                    get_the_title()
-                );
-            }
-
-            ?>
+                <?php echo $comment_reply_title; ?>
             </h2><!-- .comments-title -->
 
         </div><!-- .comments-header -->
 
         <div class="comments-inner section-inner thin max-percentage">
-
             <?php
-            wp_list_comments(
-                array(
-                    'walker'      => new \Jankx\Walker\Comment(),
-                    'avatar_size' => 120,
-                    'style'       => 'div',
-                )
-            );
+            wp_list_comments($list_comments_args);
 
-            $comment_pagination = paginate_comments_links(
-                array(
-                    'echo'      => false,
-                    'end_size'  => 0,
-                    'mid_size'  => 0,
-                    'next_text' => __('Newer Comments', 'twentytwenty') . ' <span aria-hidden="true">&rarr;</span>',
-                    'prev_text' => '<span aria-hidden="true">&larr;</span> ' . __('Older Comments', 'twentytwenty'),
-                )
-            );
-
-            if ($comment_pagination) {
+            if ($comment_pagination):
                 $pagination_classes = '';
 
                 // If we're only showing the "Next" link, add a class indicating so.
                 if (false === strpos($comment_pagination, 'prev page-numbers')) {
                     $pagination_classes = ' only-next';
                 }
-                ?>
+            ?>
 
                 <nav class="comments-pagination pagination<?php echo $pagination_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>" aria-label="<?php esc_attr_e('Comments', 'twentytwenty'); ?>">
                     <?php echo wp_kses_post($comment_pagination); ?>
                 </nav>
-
-                <?php
-            }
-            ?>
+            <?php endif; ?>
 
         </div><!-- .comments-inner -->
 
     </div><!-- comments -->
-
-    <?php
-}
+<?php
 
 if (comments_open() || pings_open()) {
     if ($comments) {
