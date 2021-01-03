@@ -1,6 +1,6 @@
 <?php defined('ABSPATH') || exit('Cheating huh?'); ?>
 
-<?php do_action( 'jankx_template_before_list_comments' ); ?>
+<?php do_action( 'jankx_template_before_list_comments', $comments ); ?>
 
 <div class="comments" id="comments">
     <div class="comments-header section-inner small max-percentage">
@@ -34,4 +34,4 @@
 </div><!-- comments -->
 
 <?php
-do_action( 'jankx_template_after_list_comments' );
+do_action( 'jankx_template_after_list_comments', $comments );
