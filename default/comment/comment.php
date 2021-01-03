@@ -1,5 +1,4 @@
 <article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-    <div class="comment-body-inner">
         <?php do_action('jankx_template_comment_before_bobdy', $comment, $args); ?>
 
         <div class="body">
@@ -61,5 +60,4 @@
         </div>
 
         <?php do_action('jankx_template_comment_after_bobdy', $comment); ?>
-    </div>
 </article><!-- .comment-body -->
