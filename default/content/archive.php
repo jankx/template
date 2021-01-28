@@ -40,7 +40,4 @@ if (has_action($template_hook)) {
     $postRenderer->setLayout(PostLayoutManager::CARD);
 
     echo $postRenderer->render();
-
-    // Create pagination
-    echo jankx_paginate();
 }
