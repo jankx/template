@@ -1,4 +1,4 @@
-<header <?php echo jankx_generate_html_attributes($attributes); ?>>
+<header <?php echo $attributes; ?>>
     <?php do_action('jankx_template_before_header_content'); ?>
     <?php jankx_open_container(); ?>
 
