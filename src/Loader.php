@@ -59,7 +59,14 @@ class Loader
     public function render($templates, $data = [], $context = null, $echo = true)
     {
         if ($context) {
-            $pre = apply_filters("jankx_pre_render_template_{$context}", null, $templates, $context, $this->templateEngine);
+            $pre = apply_filters(
+                "jankx_pre_render_template_{$context}",
+                null,
+                $templates,
+                $data,
+                $context,
+                $this->templateEngine
+            );
 
             if (!is_null($pre)) {
                 if (!$echo) {
