@@ -86,8 +86,8 @@ if (!function_exists('jankx_close_container')) {
             do_action("jankx_template_closing_{$context}_container");
         }
 
-        $close_html = apply_filters('jankx_template_pre_close_container', null);
-        if (!$close_html) {
+        $close_html = apply_filters('jankx_template_pre_close_container', null, $context);
+        if (is_null($close_html)) {
             $close_html = apply_filters(
                 'jankx_template_close_container',
                 jankx_template('common/container-close', array(), null, false)
