@@ -63,8 +63,8 @@ if (!function_exists('jankx_open_container')) {
     function jankx_open_container($custom_classes = '', $context = null) {
         do_action('jankx_template_before_open_container');
 
-        $open_html = apply_filters('jankx_template_pre_open_container', null);
-        if (!$open_html) {
+        $open_html = apply_filters('jankx_template_pre_open_container', null, $context);
+        if (is_null($open_html)) {
             $open_html = apply_filters(
                 'jankx_template_open_container',
                 jankx_template('common/container-open', array(
