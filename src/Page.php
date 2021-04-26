@@ -113,6 +113,7 @@ class Page
         if (is_singular()) {
             the_post();
         }
+        do_action('jankx_template_init_page');
 
         if (empty($context)) {
             $context = $this->context;
