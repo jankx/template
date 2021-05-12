@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "jankx/template-engine": "^1.0"
+    "jankx/template-engine": "*"
   },
   "autoload": {
     "psr-4": {
