@@ -52,14 +52,4 @@ class Template
             defined('JANKX_THEME_DEFAULT_ENGINE') ? JANKX_THEME_DEFAULT_ENGINE : null
         );
     }
-
-    public static function loadTemplateHelpers()
-    {
-        $helpersDir = realpath(dirname(__FILE__) . '/../helpers');
-
-        /**
-         * Load Jankx template helpers
-         */
-        require_once $helpersDir . '/template.php';
-    }
 }

@@ -127,6 +127,7 @@ class Page
                 $this->partialName = $queried_object->taxonomy;
             }
         }
+
         $context      = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
         $templateHook = sprintf('jankx_template_page_%s_%s', $context, $this->partialName);
 

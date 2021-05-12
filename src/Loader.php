@@ -5,8 +5,6 @@ use Jankx\Template\Engine\Engine;
 
 class Loader
 {
-    protected static $templateLoaded;
-
     protected $templateEngine;
 
     public function __construct($engine = null)
@@ -24,24 +22,6 @@ class Loader
             );
         }
         $this->templateEngine = $engine;
-    }
-
-    public function load()
-    {
-        if (!static::$templateLoaded) {
-            /**
-             * Create a flag to check Jankx template library is loaded
-             */
-            static::$templateLoaded = true;
-
-            Template::loadTemplateHelpers();
-
-            $pageTemplate = Page::getInstance();
-
-            // Call the Jankx Page
-            add_filter('template_include', array($pageTemplate, 'callTemplate'), 99);
-        }
-        Template::setDefautLoader();
     }
 
     public function searchTemplate($templates, $context = null)
