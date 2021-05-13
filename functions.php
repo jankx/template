@@ -13,10 +13,10 @@ if (function_exists('jankx_template')) {
  * @return void
  */
 if (! function_exists('jankx')) {
-    function jankx($context = '')
+    function jankx()
     {
         $page = Page::getInstance();
-        $page->render($context);
+        $page->render();
     }
 }
 

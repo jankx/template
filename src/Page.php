@@ -60,6 +60,11 @@ class Page
         return $this->baseFileName;
     }
 
+    public function setContext($context)
+    {
+        $this->context = $context;
+    }
+
     /**
      * Get the current context
      *
@@ -71,38 +76,12 @@ class Page
     }
 
     /**
-     * Set the original template file to page template
-     *
-     * @param string $template The WordPress template is called
-     * @return string
-     */
-    public function callTemplate($template)
-    {
-        $this->templateFile = $template;
-        $this->isCustomTemplate = is_numeric(
-            strpos($template, WP_PLUGIN_DIR)
-        );
-        $this->baseFileName = basename($template);
-        if (preg_match('/(\w{1,})-?([^\.]*)?/', $this->baseFileName, $matches)) {
-            $this->context = $matches[1];
-            if (isset($matches[2])) {
-                $this->partialName = $matches[2];
-            }
-        }
-
-        // Create new hook to setup page
-        do_action('jankx_call_page_template', $this);
-
-        return $template;
-    }
-
-    /**
      * The main template render
      *
      * @param string $context Create the action hook via render context
      * @return void
      */
-    public function render($context = '')
+    public function render()
     {
         /**
          * Get site header
@@ -115,9 +94,7 @@ class Page
         }
         do_action('jankx_template_init_page');
 
-        if (empty($context)) {
-            $context = $this->context;
-        }
+        $context = $this->context;
         if (empty($this->partialName)) {
             if ($context === 'single') {
                 $this->partialName = get_post_type();
