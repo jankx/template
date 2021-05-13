@@ -7,7 +7,6 @@ class Page
 {
     protected static $instance;
 
-    protected $isCustomTemplate;
     protected $baseFileName;
     protected $templateFile;
     protected $context;
@@ -27,17 +26,6 @@ class Page
     }
 
     /**
-     * Check the page tempalte is custom by plugin or not
-     * If the template called from theme will be return false
-     *
-     * @return boolean
-     */
-    public function isCustomTemplate()
-    {
-        return (boolean)$this->isCustomTemplate;
-    }
-
-    /**
      * Get the original template file
      *
      * @return string
@@ -48,16 +36,6 @@ class Page
             return str_replace('\\', '/', $this->templateFile);
         }
         return $this->templateFile;
-    }
-
-    /**
-     * Get the original template file name
-     *
-     * @return string
-     */
-    public function getBaseFileName()
-    {
-        return $this->baseFileName;
     }
 
     public function setContext($context)
@@ -73,6 +51,11 @@ class Page
     public function getContext()
     {
         return $this->context;
+    }
+
+    public function setPartialName($partialName)
+    {
+        $this->partialName = $partialName;
     }
 
     /**
@@ -105,20 +88,19 @@ class Page
             }
         }
 
-        $context      = $this->isCustomTemplate() ? sprintf('plugin_%s', $context) : $context;
         $templateHook = sprintf('jankx_template_page_%s_%s', $context, $this->partialName);
 
         do_action('jankx_template_before_content', $context, $this->partialName);
         if (has_action($templateHook)) {
-            do_action($templateHook, $context, $this->partialName, $this->isCustomTemplate);
+            do_action($templateHook, $context, $this->partialName);
         } else {
             $templates = [];
 
-            if ($this->partialName !== '') {
-                $templates[] = sprintf('content/%s/%s', $context, $this->partialName);
-                $templates[] = sprintf('content/%s-%s', $context, $this->partialName);
+            if ($this->partialName != '') {
+                $templates[] = sprintf('%s/%s', $context, $this->partialName);
+                $templates[] = sprintf('%s-%s', $context, $this->partialName);
             }
-            $templates[] = 'content/' . $context;
+            $templates[] = $context;
 
             jankx_template(
                 $templates,
