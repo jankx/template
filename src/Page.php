@@ -88,9 +88,14 @@ class Page
             }
         }
 
-        $templateHook = sprintf('jankx_template_page_%s_%s', $context, $this->partialName);
-
         do_action('jankx_template_before_content', $context, $this->partialName);
+
+        $templateHook = sprintf(
+            'jankx_template_page_%s%s',
+            $context,
+            $this->partialName ? '_' . $this->partialName : ''
+        );
+
         if (has_action($templateHook)) {
             do_action($templateHook, $context, $this->partialName);
         } else {
@@ -107,6 +112,7 @@ class Page
                 apply_filters("jankx_template_page_{$context}_data", [])
             );
         }
+
         do_action('jankx_template_after_content', $context, $this->partialName);
 
         $footerActiveStatus = apply_filters('jankx_is_active_footer', true, $this);
