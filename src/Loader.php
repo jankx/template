@@ -1,7 +1,7 @@
 <?php
 namespace Jankx\Template;
 
-use Jankx\Template\Engine\Engine;
+use Jankx\TemplateEngine\Engine;
 
 class Loader
 {

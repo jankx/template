@@ -1,7 +1,7 @@
 <?php
 namespace Jankx\Template;
 
-use Jankx\Template\Engine\EngineManager;
+use Jankx\TemplateEngine\EngineManager;
 
 class Template
 {
