@@ -26,6 +26,8 @@ class Template
             ));
 
             static::$engines[$id] = &$engine;
+
+            return $engine;
         }
     }
 
