@@ -2,54 +2,37 @@
 namespace Jankx\Template;
 
 use Jankx\TemplateEngine\EngineManager;
+use Jankx\TemplateEngine\Engine;
+use Jankx\TemplateEngine\Engines\Plates;
 
 class Template
 {
-    protected static $instances = [];
-    protected static $defautLoader;
+    protected static $engines = array();
 
-    public static function getLoader($templateFileLoader = null, $directoryInTheme = '', $engineName = 'wordpress')
+    public static function createEngine($id, $templateDirectory, $defaultDirectory, $engineName = null)
     {
-        if (is_null($templateFileLoader) && static::$defautLoader) {
-            $templateFileLoader = static::$defautLoader;
-        }
-        if (empty(static::$instances[$templateFileLoader])) {
-            $applyTemplateEngine = apply_filters(
-                'jankx_template_engine',
-                $engineName,
-                $templateFileLoader,
-                $directoryInTheme
-            );
-            $engine = EngineManager::createEngine(
-                $templateFileLoader,
-                $applyTemplateEngine,
-                array(
-                    'template_directory' => $directoryInTheme,
-                    'template_location' => $templateFileLoader,
-                )
-            );
-            $loader = new Loader();
-            $loader->setTemplateEngine($engine);
+        if (!isset(static::$engines[$id])) {
+            $engine = Engine::create($id, $engineName);
+            if (is_null($engine)) {
+                return;
+            }
 
-            static::$instances[$templateFileLoader] = $loader;
-        }
-        return static::$instances[$templateFileLoader];
-    }
+            $engine->setDefaultTemplateDir($defaultDirectory);
+            $engine->setDirectoryInTheme($templateDirectory);
 
-    public static function setDefautLoader($loader = null)
-    {
-        if (is_null($loader)) {
-            static::$defautLoader = static::getDefaultLoader();
-        } else {
-            static::$defautLoader = $loader;
+            add_action('init', array($engine, 'setupEnvironment'), 20);
+            do_action_ref_array("jankx_template_engine_{$engine->getName()}_init", array(
+                &$engine
+            ));
+
+            static::$engines[$id] = &$engine;
         }
     }
 
-    public static function getDefaultLoader()
+    public static function getEngine($id)
     {
-        return apply_filters(
-            'jankx_default_template_loader',
-            defined('JANKX_THEME_DEFAULT_ENGINE') ? JANKX_THEME_DEFAULT_ENGINE : null
-        );
+        if (isset(static::$engines[$id])) {
+            return static::$engines[$id];
+        }
     }
 }
