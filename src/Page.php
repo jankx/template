@@ -64,6 +64,23 @@ class Page
         return $this->context;
     }
 
+    protected function renderContent($engine) {
+        $templateHook = sprintf(
+            'jankx_template_page_%s%s',
+            $this->context,
+            $this->partialName ? '_' . $this->partialName : ''
+        );
+
+        if (has_action($templateHook)) {
+            return do_action($templateHook, $context, $this->partialName);
+        }
+
+        $engine->render(
+            $this->generateTemplateNames(),
+            apply_filters("jankx_template_page_{$this->context}_data", [])
+        );
+    }
+
     /**
      * The main template render
      *
@@ -79,6 +96,44 @@ class Page
             $this
         ));
 
-        $engine->render($this->generateTemplateNames());
+        if (!$engine->isDirectRender()) {
+            return $engine->render($this->generateTemplateNames());
+        }
+
+        /**
+         * Get site header
+         */
+        get_header($this->partialName ? $this->partialName : $this->context);
+
+        // Setup post data
+        if (is_singular()) {
+            the_post();
+        }
+        do_action('jankx_template_init_page');
+
+        $context = $this->context;
+        if (empty($this->partialName)) {
+            if ($context === 'single') {
+                $this->partialName = get_post_type();
+            } elseif ($context === 'taxonomy') {
+                $context = 'archive';
+                $queried_object = get_queried_object();
+                $this->partialName = $queried_object->taxonomy;
+            }
+        }
+
+        do_action('jankx_template_before_content', $context, $this->partialName);
+
+        $this->renderContent($engine);
+
+        do_action('jankx_template_after_content', $context, $this->partialName);
+
+        $footerActiveStatus = apply_filters('jankx_is_active_footer', true, $this);
+        if ($footerActiveStatus) {
+            $footerName = $this->partialName ? $this->partialName : $this->context;
+        } else {
+            $footerName = 'blank';
+        }
+        get_footer($footerName);
     }
 }
