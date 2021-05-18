@@ -20,7 +20,7 @@ class Template
             $engine->setDefaultTemplateDir($defaultDirectory);
             $engine->setDirectoryInTheme($templateDirectory);
 
-            add_action('init', array($engine, 'setupEnvironment'), 20);
+            add_action('init', array($engine, 'setupEnvironment'), 5);
             do_action_ref_array("jankx_template_engine_{$engine->getName()}_init", array(
                 &$engine
             ));
