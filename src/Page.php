@@ -1,6 +1,7 @@
 <?php
 namespace Jankx\Template;
 
+use Jankx;
 use Jankx\Template\Template;
 
 class Page
@@ -58,6 +59,11 @@ class Page
         $this->partialName = $partialName;
     }
 
+    public function generateTemplateNames()
+    {
+        return $this->context;
+    }
+
     /**
      * The main template render
      *
@@ -66,61 +72,13 @@ class Page
      */
     public function render()
     {
-        /**
-         * Get site header
-         */
-        get_header($this->partialName ? $this->partialName : $this->context);
+        $engine = Template::getEngine(Jankx::ENGINE_ID);
 
-        // Setup post data
-        if (is_singular()) {
-            the_post();
-        }
-        do_action('jankx_template_init_page');
+        do_action_ref_array( 'jankx_prepare_render_template', array(
+            &$engine,
+            $this
+        ));
 
-        $context = $this->context;
-        if (empty($this->partialName)) {
-            if ($context === 'single') {
-                $this->partialName = get_post_type();
-            } elseif ($context === 'taxonomy') {
-                $context = 'archive';
-                $queried_object = get_queried_object();
-                $this->partialName = $queried_object->taxonomy;
-            }
-        }
-
-        do_action('jankx_template_before_content', $context, $this->partialName);
-
-        $templateHook = sprintf(
-            'jankx_template_page_%s%s',
-            $context,
-            $this->partialName ? '_' . $this->partialName : ''
-        );
-
-        if (has_action($templateHook)) {
-            do_action($templateHook, $context, $this->partialName);
-        } else {
-            $templates = [];
-
-            if ($this->partialName != '') {
-                $templates[] = sprintf('%s/%s', $context, $this->partialName);
-                $templates[] = sprintf('%s-%s', $context, $this->partialName);
-            }
-            $templates[] = $context;
-
-            jankx_template(
-                $templates,
-                apply_filters("jankx_template_page_{$context}_data", [])
-            );
-        }
-
-        do_action('jankx_template_after_content', $context, $this->partialName);
-
-        $footerActiveStatus = apply_filters('jankx_is_active_footer', true, $this);
-        if ($footerActiveStatus) {
-            $footerName = $this->partialName ? $this->partialName : $this->context;
-        } else {
-            $footerName = 'blank';
-        }
-        get_footer($footerName);
+        $engine->render($this->generateTemplateNames());
     }
 }
