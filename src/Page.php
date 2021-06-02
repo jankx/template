@@ -72,7 +72,7 @@ class Page
         );
 
         if (has_action($templateHook)) {
-            return do_action($templateHook, $context, $this->partialName);
+            return do_action($templateHook, $this->context, $this->partialName);
         }
 
         $engine->render(
