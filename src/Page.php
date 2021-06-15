@@ -61,6 +61,13 @@ class Page
 
     public function generateTemplateNames()
     {
+        if ($this->partialName) {
+            return array(
+                $this->context . '/' . $this->partialName,
+                $this->context . '-' . $this->partialName,
+                $this->context
+            );
+        }
         return $this->context;
     }
 
@@ -109,7 +116,6 @@ class Page
         if (is_singular()) {
             the_post();
         }
-        do_action('jankx_template_init_page');
 
         $context = $this->context;
         if (empty($this->partialName)) {
