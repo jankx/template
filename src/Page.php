@@ -8,10 +8,8 @@ class Page
 {
     protected static $instance;
 
-    protected $baseFileName;
-    protected $templateFile;
     protected $context;
-    protected $partialName;
+    protected $templates;
 
     public static function getInstance()
     {
@@ -24,19 +22,6 @@ class Page
     private function __construct()
     {
         // Please create the Jankx Page via method getInstance()
-    }
-
-    /**
-     * Get the original template file
-     *
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        if (PHP_OS === 'WINNT') {
-            return str_replace('\\', '/', $this->templateFile);
-        }
-        return $this->templateFile;
     }
 
     public function setContext($context)
@@ -54,21 +39,17 @@ class Page
         return $this->context;
     }
 
-    public function setPartialName($partialName)
+    public function setTemplates($templates)
     {
-        $this->partialName = $partialName;
+        $this->templates = $templates;
     }
 
     public function generateTemplateNames()
     {
-        if ($this->partialName) {
-            return array(
-                $this->context . '/' . $this->partialName,
-                $this->context . '-' . $this->partialName,
-                $this->context
-            );
+        if (empty($this->templates)) {
+            return $this->context;
         }
-        return $this->context;
+        return $this->templates;
     }
 
     protected function renderContent($engine) {
