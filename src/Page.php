@@ -47,9 +47,20 @@ class Page
     public function generateTemplateNames()
     {
         if (empty($this->templates)) {
-            return $this->context;
+            $this->templates = $this->context;
         }
-        return $this->templates;
+
+        if (!is_array($this->templates)) {
+            $this->templates = array($this->templates);
+        }
+
+        array_push($this->templates, 'home');
+
+        return apply_filters(
+            'jankx_template_page_template_names',
+            $this->templates,
+            $this->context
+        );
     }
 
     protected function renderContent($engine) {
@@ -63,7 +74,7 @@ class Page
             return do_action($templateHook, $this->context, $this->partialName);
         }
 
-        $engine->render(
+        return $engine->render(
             $this->generateTemplateNames(),
             apply_filters("jankx_template_page_{$this->context}_data", [])
         );
