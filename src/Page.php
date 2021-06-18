@@ -90,11 +90,6 @@ class Page
     {
         $engine = Template::getEngine(Jankx::ENGINE_ID);
 
-        do_action_ref_array( 'jankx_prepare_render_template', array(
-            &$engine,
-            $this
-        ));
-
         if (!$engine->isDirectRender()) {
             return $engine->render($this->generateTemplateNames());
         }
