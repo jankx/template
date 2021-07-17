@@ -46,37 +46,36 @@ class Page
 
     public function generateTemplateNames()
     {
-        if (empty($this->templates)) {
-            $this->templates = $this->context;
+        $templates = empty($this->templates) ? $this->context : $this->templates;
+
+        if (!is_array($templates)) {
+            $templates = array($templates);
         }
 
-        if (!is_array($this->templates)) {
-            $this->templates = array($this->templates);
-        }
-
-        array_push($this->templates, 'home');
+        array_push($templates, 'home');
 
         return apply_filters(
             'jankx_template_page_template_names',
-            $this->templates,
-            $this->context
+            $templates,
+            $this->context,
+            $this->templates
         );
     }
 
-    protected function renderContent($engine) {
-        $templateHook = sprintf(
-            'jankx_template_page_%s%s',
-            $this->context,
-            $this->partialName ? '_' . $this->partialName : ''
-        );
+    protected function renderContent($engine)
+    {
+        $pre = apply_filters('jankx_template_page_pre_content', null, $this->context, $this->templates);
+        if (!is_null($pre)) {
+            echo $pre;
 
-        if (has_action($templateHook)) {
-            return do_action($templateHook, $this->context, $this->partialName);
+            // Stop when pre-content has a value
+            return;
         }
 
         return $engine->render(
             $this->generateTemplateNames(),
-            apply_filters("jankx_template_page_{$this->context}_data", [])
+            apply_filters("jankx_template_page_{$this->context}_data", []),
+            false
         );
     }
 
@@ -97,7 +96,7 @@ class Page
         /**
          * Get site header
          */
-        get_header($this->partialName ? $this->partialName : $this->context);
+        get_header(apply_filters('jankx_template_get_header', null, $this->templates, $this->context));
 
         // Setup post data
         if (is_singular()) {
@@ -115,18 +114,12 @@ class Page
             }
         }
 
-        do_action('jankx_template_before_content', $context, $this->partialName);
+        do_action('jankx_template_before_content', $context, $this->templates);
 
         $this->renderContent($engine);
 
-        do_action('jankx_template_after_content', $context, $this->partialName);
+        do_action('jankx_template_after_content', $context, $this->templates);
 
-        $footerActiveStatus = apply_filters('jankx_is_active_footer', true, $this);
-        if ($footerActiveStatus) {
-            $footerName = $this->partialName ? $this->partialName : $this->context;
-        } else {
-            $footerName = 'blank';
-        }
-        get_footer($footerName);
+        get_footer(apply_filters('jankx_template_get_footer', null, $this->templates, $this->context));
     }
 }
