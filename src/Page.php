@@ -66,10 +66,7 @@ class Page
     {
         $pre = apply_filters('jankx_template_page_pre_content', null, $this->context, $this->templates);
         if (!is_null($pre)) {
-            echo $pre;
-
-            // Stop when pre-content has a value
-            return;
+            return $pre;
         }
 
         return $engine->render(
@@ -116,7 +113,7 @@ class Page
 
         do_action('jankx_template_before_content', $context, $this->templates);
 
-        $this->renderContent($engine);
+        echo $this->renderContent($engine);
 
         do_action('jankx_template_after_content', $context, $this->templates);
 
