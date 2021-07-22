@@ -62,6 +62,10 @@ class Page
         );
     }
 
+    public function getTemplates() {
+        return $this->templates;
+    }
+
     protected function renderContent($engine)
     {
         $pre = apply_filters('jankx_template_page_pre_content', null, $this->context, $this->templates);
