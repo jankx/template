@@ -3,6 +3,7 @@ namespace Jankx\Template;
 
 use Jankx;
 use Jankx\Template\Template;
+use Jankx\TemplateEngine\Context;
 
 class Page
 {
@@ -75,7 +76,7 @@ class Page
 
         return $engine->render(
             $this->generateTemplateNames(),
-            apply_filters("jankx_template_page_{$this->context}_data", []),
+            apply_filters("jankx_template_page_{$this->context}_data", Context::get()),
             false
         );
     }
