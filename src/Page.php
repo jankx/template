@@ -63,7 +63,8 @@ class Page
         );
     }
 
-    public function getTemplates() {
+    public function getTemplates()
+    {
         return $this->templates;
     }
 
@@ -95,10 +96,14 @@ class Page
             return $engine->render($this->generateTemplateNames());
         }
 
+        do_action('jankx/template/page/header/before', $this);
+
         /**
          * Get site header
          */
-        get_header(apply_filters('jankx_template_get_header', null, $this->templates, $this->context));
+        get_header(
+            apply_filters('jankx/template/page/header/name', null, $this->templates, $this->context)
+        );
 
         // Setup post data
         if (is_singular()) {
@@ -116,12 +121,12 @@ class Page
             }
         }
 
-        do_action('jankx_template_before_content', $context, $this->templates);
+        do_action('jankx/template/page/content/before', $context, $this->templates);
 
         echo $this->renderContent($engine);
 
-        do_action('jankx_template_after_content', $context, $this->templates);
+        do_action('jankx/template/page/content/after', $context, $this->templates);
 
-        get_footer(apply_filters('jankx_template_get_footer', null, $this->templates, $this->context));
+        get_footer(apply_filters('jankx/template/page/footer/name', null, $this->templates, $this->context));
     }
 }
