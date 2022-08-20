@@ -102,7 +102,12 @@ class Page
          * Get site header
          */
         get_header(
-            apply_filters('jankx/template/page/header/name', null, $this->templates, $this->context)
+            apply_filters(
+                'jankx/template/page/header/name',
+                null,
+                $this->templates,
+                $this->context
+            )
         );
 
         // Setup post data
@@ -127,6 +132,13 @@ class Page
 
         do_action('jankx/template/page/content/after', $context, $this->templates);
 
-        get_footer(apply_filters('jankx/template/page/footer/name', null, $this->templates, $this->context));
+        get_footer(
+            apply_filters(
+                'jankx/template/page/footer/name',
+                null,
+                $this->templates,
+                $this->context
+            )
+        );
     }
 }
