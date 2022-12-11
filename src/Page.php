@@ -70,10 +70,12 @@ class Page
 
     protected function renderContent($engine)
     {
-        $pre = apply_filters('jankx_template_page_pre_content', null, $this->context, $this->templates);
+        $pre = apply_filters('jankx/template/site/content/pre', null, $this->context, $this->templates);
         if (!is_null($pre)) {
             return $pre;
         }
+
+        do_action('jankx/template/site/content/init', $this->context, $this->templates);
 
         return $engine->render(
             $this->generateTemplateNames(),
