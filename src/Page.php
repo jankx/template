@@ -53,7 +53,11 @@ class Page
             $templates = array($templates);
         }
 
-        array_push($templates, 'home');
+        if (in_array($this->context, ['tax', 'author', 'date'])) {
+            array_push($templates, 'archive');
+        }
+
+        array_push($templates, 'index');
 
         return apply_filters(
             'jankx_template_page_template_names',
@@ -129,6 +133,7 @@ class Page
         }
 
         do_action('jankx/template/page/content/before', $context, $this->templates);
+
 
         echo $this->renderContent($engine);
 
