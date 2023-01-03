@@ -83,7 +83,7 @@ class Page
 
         return $engine->render(
             $this->generateTemplateNames(),
-            apply_filters("jankx_template_page_{$this->context}_data", Context::get()),
+            apply_filters("jankx/template/page/{$this->context}/data", Context::get()),
             false
         );
     }
@@ -99,7 +99,10 @@ class Page
         $engine = Template::getEngine(Jankx::ENGINE_ID);
 
         if (!$engine->isDirectRender()) {
-            return $engine->render($this->generateTemplateNames());
+            return $engine->render(
+                $this->generateTemplateNames(),
+                apply_filters("jankx/template/page/{$this->context}/data", Context::get())
+            );
         }
 
         do_action('jankx/template/page/header/before', $this);
