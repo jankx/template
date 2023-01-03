@@ -21,7 +21,7 @@ class Template
             $engine->setDirectoryInTheme($templateDirectory);
             $engine->setupEnvironment();
 
-            do_action_ref_array("jankx_template_engine_{$engine->getName()}_init", array(
+            do_action_ref_array("jankx/template/engine/{$engine->getName()}/init", array(
                 &$engine
             ));
 
