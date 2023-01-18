@@ -60,7 +60,7 @@ class Page
         array_push($templates, 'index');
 
         return apply_filters(
-            'jankx_template_page_template_names',
+            'jankx/template/page/template_names',
             $templates,
             $this->context,
             $this->templates
