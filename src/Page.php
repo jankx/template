@@ -99,10 +99,16 @@ class Page
         $engine = Template::getEngine(Jankx::ENGINE_ID);
 
         if (!$engine->isDirectRender()) {
-            return $engine->render(
+            $content = $engine->render(
                 $this->generateTemplateNames(),
                 apply_filters("jankx/template/page/{$this->context}/data", Context::get())
             );
+
+            if (has_action('qm/start')) {
+                do_action( 'qm/stop', 'jankx' );
+            }
+
+            return $content;
         }
 
         do_action('jankx/template/page/header/before', $this);
@@ -150,5 +156,9 @@ class Page
                 $this->context
             )
         );
+
+        if (has_action('qm/start')) {
+            do_action( 'qm/stop', 'jankx' );
+        }
     }
 }
