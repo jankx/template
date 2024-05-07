@@ -10,6 +10,9 @@ class Page
     protected static $instance;
 
     protected $context;
+
+    protected $partialName;
+
     protected $templates;
 
     public static function getInstance()
@@ -99,16 +102,10 @@ class Page
         $engine = Template::getEngine(Jankx::ENGINE_ID);
 
         if (!$engine->isDirectRender()) {
-            $content = $engine->render(
+            return $engine->render(
                 $this->generateTemplateNames(),
                 apply_filters("jankx/template/page/{$this->context}/data", Context::get())
             );
-
-            if (has_action('qm/start')) {
-                do_action( 'qm/stop', 'jankx' );
-            }
-
-            return $content;
         }
 
         do_action('jankx/template/page/header/before', $this);
@@ -156,9 +153,5 @@ class Page
                 $this->context
             )
         );
-
-        if (has_action('qm/start')) {
-            do_action( 'qm/stop', 'jankx' );
-        }
     }
 }
