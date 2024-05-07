@@ -1,4 +1,5 @@
 <?php
+
 namespace Jankx\Template;
 
 use Jankx\TemplateEngine\EngineManager;

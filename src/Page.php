@@ -1,4 +1,7 @@
 <?php
+/**
+ * Setup Jankx page (Theme system)
+ */
 namespace Jankx\Template;
 
 use Jankx;
