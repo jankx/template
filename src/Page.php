@@ -75,6 +75,9 @@ class Page
 
     public function getTemplates()
     {
+        if (is_null($this->templates)) {
+            return [];
+        }
         return $this->templates;
     }
 
