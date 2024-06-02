@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Setup Jankx page (Theme system)
  */
+
 namespace Jankx\Template;
 
 use Jankx;
@@ -147,7 +149,11 @@ class Page
         do_action('jankx/template/page/content/before', $context, $this->templates);
 
 
-        echo $this->renderContent($engine);
+        if (!apply_filters('jankx/gutenberg/render/disabled', false, $this) && function_exists('jankx_is_support_block_template') && jankx_is_support_block_template()) {
+            echo get_the_block_template_html();
+        } else {
+            echo $this->renderContent($engine);
+        }
 
         do_action('jankx/template/page/content/after', $context, $this->templates);
 
