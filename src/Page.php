@@ -20,6 +20,8 @@ class Page
 
     protected $templates;
 
+    protected $loadedLayout;
+
     public static function getInstance()
     {
         if (is_null(self::$instance)) {
@@ -46,6 +48,17 @@ class Page
     public function getContext()
     {
         return $this->context;
+    }
+
+
+    public function getLoadedLayout()
+    {
+        return $this->loadedLayout;
+    }
+
+    public function setLoadedLayout($layout)
+    {
+        $this->loadedLayout = $layout;
     }
 
     public function setTemplates($templates)
