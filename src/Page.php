@@ -22,6 +22,8 @@ class Page
 
     protected $loadedLayout;
 
+    protected $isGutenbergSupport;
+
     public static function getInstance()
     {
         if (is_null(self::$instance)) {
@@ -96,14 +98,20 @@ class Page
         return $this->templates;
     }
 
+    public function isGutenbergSupport() {
+        if (is_null($this->isGutenbergSupport)) {
+            $this->isGutenbergSupport = jankx_is_support_block_template();
+        }
+        return $this->isGutenbergSupport;
+    }
+
     protected function renderContent($engine)
     {
         $pre = apply_filters('jankx/template/site/content/pre', null, $this->context, $this->templates);
         if (!is_null($pre)) {
             return $pre;
         }
-
-        do_action('jankx/template/site/content/init', $this->context, $this->templates);
+        do_action('jankx/template/site/content/init', $this, $this->context, $this->templates);
 
         return $engine->render(
             $this->generateTemplateNames(),
@@ -120,6 +128,8 @@ class Page
      */
     public function render()
     {
+        do_action('jankx/template/render/start', $this);
+
         $engine = Template::getEngine(Jankx::ENGINE_ID);
 
         if (!$engine->isDirectRender()) {
@@ -162,7 +172,7 @@ class Page
         do_action('jankx/template/page/content/before', $context, $this->templates);
 
 
-        if (!apply_filters('jankx/gutenberg/render/disabled', false, $this) && function_exists('jankx_is_support_block_template') && jankx_is_support_block_template()) {
+        if ($this->isGutenbergSupport()) {
             echo get_the_block_template_html();
         } else {
             echo $this->renderContent($engine);
@@ -178,5 +188,7 @@ class Page
                 $this->context
             )
         );
+
+        do_action('jankx/template/render/start', $this);
     }
 }
