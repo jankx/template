@@ -98,7 +98,8 @@ class Page
         return $this->templates;
     }
 
-    public function isGutenbergSupport() {
+    public function isGutenbergSupport()
+    {
         if (is_null($this->isGutenbergSupport)) {
             $this->isGutenbergSupport = jankx_is_support_block_template();
         }
@@ -130,7 +131,8 @@ class Page
     {
         do_action('jankx/template/render/start', $this);
 
-        $engine = Template::getEngine(Jankx::ENGINE_ID);
+        $template_html = $this->isGutenbergSupport() ? get_the_block_template_html() : null;
+        $engine        = Template::getEngine(Jankx::ENGINE_ID);
 
         if (!$engine->isDirectRender()) {
             return $engine->render(
@@ -172,8 +174,8 @@ class Page
         do_action('jankx/template/page/content/before', $context, $this->templates);
 
 
-        if ($this->isGutenbergSupport()) {
-            echo get_the_block_template_html();
+        if (!is_null($template_html)) {
+            echo $template_html;
         } else {
             echo $this->renderContent($engine);
         }
