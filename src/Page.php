@@ -191,6 +191,6 @@ class Page
             )
         );
 
-        do_action('jankx/template/render/start', $this);
+        do_action('jankx/template/render/end', $this);
     }
 }
