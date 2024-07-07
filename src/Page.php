@@ -124,8 +124,6 @@ class Page
     // Compatible with old WordPress versions.
     public function legacyRender($engine)
     {
-        do_action('jankx/template/header/before', $this);
-
         /**
          * Get site header
          */
@@ -158,7 +156,7 @@ class Page
             )
         );
 
-        do_action('jankx/template/render/end', $this);
+        do_action('jankx/template/page/render/end', $this);
     }
 
     /**
@@ -169,7 +167,7 @@ class Page
      */
     public function render()
     {
-        do_action('jankx/template/render/start', $this);
+        do_action('jankx/template/page/render/start', $this);
 
         $engine = Template::getEngine(Jankx::ENGINE_ID);
         if (!$engine->isDirectRender()) {
@@ -213,6 +211,6 @@ class Page
         </html>
 
         <?php
-        do_action('jankx/template/render/end', $this);
+        do_action('jankx/template/page/render/end', $this);
     }
 }
