@@ -177,7 +177,9 @@ class Page
             );
         }
 
-        $template_html = $this->isGutenbergSupport() ? get_the_block_template_html() : null;
+        $template_html = $this->isGutenbergSupport() ? (
+            function_exists('jankx_get_the_block_template_html') ? jankx_get_the_block_template_html() : get_the_block_template_html()
+        ) : null;
         $this->appliedContext = $this->context;
         if (empty($this->partialName)) {
             if ($this->appliedContext === 'single') {
