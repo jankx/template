@@ -15,6 +15,7 @@ class Page
     protected static $instance;
 
     protected $context;
+    protected $appliedContext;
 
     protected $partialName;
 
@@ -112,7 +113,6 @@ class Page
         if (!is_null($pre)) {
             return $pre;
         }
-        do_action('jankx/template/site/content/init', $this, $this->context, $this->templates);
 
         return $engine->render(
             $this->generateTemplateNames(),
@@ -121,27 +121,10 @@ class Page
         );
     }
 
-    /**
-     * The main template render
-     *
-     * @param string $context Create the action hook via render context
-     * @return void
-     */
-    public function render()
+    // Compatible with old WordPress versions.
+    public function legacyRender($engine)
     {
-        do_action('jankx/template/render/start', $this);
-
-        $template_html = $this->isGutenbergSupport() ? get_the_block_template_html() : null;
-        $engine        = Template::getEngine(Jankx::ENGINE_ID);
-
-        if (!$engine->isDirectRender()) {
-            return $engine->render(
-                $this->generateTemplateNames(),
-                apply_filters("jankx/template/page/{$this->context}/data", Context::get())
-            );
-        }
-
-        do_action('jankx/template/page/header/before', $this);
+        do_action('jankx/template/header/before', $this);
 
         /**
          * Get site header
@@ -160,27 +143,11 @@ class Page
             the_post();
         }
 
-        $context = $this->context;
-        if (empty($this->partialName)) {
-            if ($context === 'single') {
-                $this->partialName = get_post_type();
-            } elseif ($context === 'taxonomy') {
-                $context = 'archive';
-                $queried_object = get_queried_object();
-                $this->partialName = $queried_object->taxonomy;
-            }
-        }
+        do_action('jankx/template/page/content/before', $this->appliedContext, $this->templates);
 
-        do_action('jankx/template/page/content/before', $context, $this->templates);
+        echo $this->renderContent($engine);
 
-
-        if (!is_null($template_html)) {
-            echo $template_html;
-        } else {
-            echo $this->renderContent($engine);
-        }
-
-        do_action('jankx/template/page/content/after', $context, $this->templates);
+        do_action('jankx/template/page/content/after', $this->appliedContext, $this->templates);
 
         get_footer(
             apply_filters(
@@ -191,6 +158,61 @@ class Page
             )
         );
 
+        do_action('jankx/template/render/end', $this);
+    }
+
+    /**
+     * The main template render
+     *
+     * @param string $context Create the action hook via render context
+     * @return void
+     */
+    public function render()
+    {
+        do_action('jankx/template/render/start', $this);
+
+        $engine = Template::getEngine(Jankx::ENGINE_ID);
+        if (!$engine->isDirectRender()) {
+            return $engine->render(
+                $this->generateTemplateNames(),
+                apply_filters("jankx/template/page/{$this->context}/data", Context::get())
+            );
+        }
+
+        $template_html = $this->isGutenbergSupport() ? get_the_block_template_html() : null;
+        $this->appliedContext = $this->context;
+        if (empty($this->partialName)) {
+            if ($this->appliedContext === 'single') {
+                $this->partialName = get_post_type();
+            } elseif ($this->appliedContext === 'taxonomy') {
+                $this->appliedContext = 'archive';
+                $queried_object = get_queried_object();
+                $this->partialName = $queried_object->taxonomy;
+            }
+        }
+
+        if (is_null($template_html)) {
+            return $this->legacyRender($engine);
+        }
+
+        ?>
+        <!DOCTYPE html>
+        <html <?php language_attributes(); ?> class="<?php echo isset($html_class) ? implode(' ', (array) $html_class) : 'no-js'; ?>">
+        <head>
+            <meta charset="<?php bloginfo('charset'); ?>" />
+            <?php wp_head(); ?>
+        </head>
+
+        <body <?php body_class(); ?>>
+        <?php wp_body_open(); ?>
+
+        <?php echo $template_html; ?>
+
+        <?php wp_footer(); ?>
+        </body>
+        </html>
+
+        <?php
         do_action('jankx/template/render/end', $this);
     }
 }
