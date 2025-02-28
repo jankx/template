@@ -36,6 +36,12 @@ class Page
     private function __construct()
     {
         // Please create the Jankx Page via method getInstance()
+        add_action(
+            'jankx/template/page/content',
+            [$this, 'renderContent'],
+            10,
+            1
+        );
     }
 
     public function setContext($context)
@@ -143,7 +149,12 @@ class Page
 
         do_action('jankx/template/page/content/before', $this->appliedContext, $this->templates);
 
-        echo $this->renderContent($engine);
+        do_action(
+            'jankx/template/page/content',
+            $engine,
+            $this->appliedContext,
+            $this->templates
+        );
 
         do_action('jankx/template/page/content/after', $this->appliedContext, $this->templates);
 
