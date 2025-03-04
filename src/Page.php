@@ -113,7 +113,7 @@ class Page
         return $this->isGutenbergSupport;
     }
 
-    protected function renderContent($engine)
+    public function renderContent($engine)
     {
         $pre = apply_filters('jankx/template/site/content/pre', null, $this->context, $this->templates);
         if (!is_null($pre)) {
