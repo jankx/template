@@ -122,8 +122,7 @@ class Page
 
         return $engine->render(
             $this->generateTemplateNames(),
-            apply_filters("jankx/template/page/{$this->context}/data", Context::get()),
-            false
+            apply_filters("jankx/template/page/{$this->context}/data", Context::get())
         );
     }
 
