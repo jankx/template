@@ -6,6 +6,10 @@
 
 namespace Jankx\Template;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx;
 use Jankx\Template\Template;
 use Jankx\TemplateEngine\Context;

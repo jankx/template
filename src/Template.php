@@ -2,6 +2,10 @@
 
 namespace Jankx\Template;
 
+if (!defined('ABSPATH')) {
+    exit('Cheatin huh?');
+}
+
 use Jankx\TemplateEngine\EngineManager;
 use Jankx\TemplateEngine\Engine;
 use Jankx\TemplateEngine\Engines\Plates;
